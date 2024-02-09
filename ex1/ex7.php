@@ -8,7 +8,7 @@ function getDaysUnderTemp(int $targetYear, float $targetTemp): float {
     while (!feof($inputFile)) {
         $dict = fgetcsv($inputFile);
 
-        if (intval($dict[0]) === $targetYear && intval($dict[4]) <= $targetTemp) {
+        if (intval($dict[0]) === $targetYear && floatval($dict[4]) <= $targetTemp) {
             $countHours++;
         }
     }
