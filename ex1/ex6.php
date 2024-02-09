@@ -14,8 +14,7 @@ while (!feof($inputFile)) {
     $month = $dict[1];
     $day = $dict[2];
     $hour = substr($dict[3], 0, -3);
-    $temperature = $dict[9];
-    print gettype($hour);
+    $temperature = $dict[9];;
 
     if ($year === 2004 || $year === 2022) {
         fputcsv($outputFile, [$year, $month, $day, $hour, $temperature]);

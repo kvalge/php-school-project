@@ -38,9 +38,7 @@ function getAverageWeightsByType(array $list): array {
         $count = $countFruits[$key];
         $resultDict[$key] = round($value / $count, 2);
     }
-
     return $resultDict;
 }
 
-// testimiseks
 print_r(getAverageWeightsByType($sampleData));
