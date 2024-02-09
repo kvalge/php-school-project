@@ -22,5 +22,6 @@ while (!feof($inputFile)) {
 }
 
 fclose($inputFile);
+
 fclose($outputFile);
 
