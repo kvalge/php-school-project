@@ -31,10 +31,3 @@ function dictToString(array $dict): string {
     }
     return substr($toString, 0, -2) . ']';
 }
-
-var_dump(getDaysUnderTempDictionary(-10));
-print dictToString($dictionary = [
-    2021 => 12.67,
-    2022 => 10.25,
-    2023 => 4.63
-]);

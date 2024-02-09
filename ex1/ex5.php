@@ -40,5 +40,3 @@ function getAverageWeightsByType(array $list): array {
     }
     return $resultDict;
 }
-
-print_r(getAverageWeightsByType($sampleData));

@@ -12,8 +12,6 @@ function isInList($list, $target): bool {
     return false;
 }
 
-var_dump(isInList($list, 2));
-
 
 
 

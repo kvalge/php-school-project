@@ -6,7 +6,6 @@ function listToString(array $list): string {
     return '[' . join(", ", $list) . ']';
 }
 
-print listToString($list);
 
 
 
