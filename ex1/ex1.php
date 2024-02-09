@@ -10,5 +10,4 @@ foreach ($numbers as $num) {
     }
 }
 
-
 print "Found it $count times";
