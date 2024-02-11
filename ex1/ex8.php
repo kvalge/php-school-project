@@ -1,7 +1,7 @@
 <?php
 
 function getDaysUnderTempDictionary(float $targetTemp): array {
-    $inputFile = fopen('C:\Users\katri\PhpstormProjects\icd0007\ex1\data\temperatures-filtered.csv', "r");
+    $inputFile = fopen(__DIR__ . '\temperatures-filtered.csv', "r");
 
     $temperatureDict = [];
 
