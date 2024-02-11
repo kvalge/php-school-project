@@ -1,6 +1,5 @@
 <?php
 
-
 $input = '[1, 4, 2, 0]';
 
 function stringToIntegerList(string $input): array {

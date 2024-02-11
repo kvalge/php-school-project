@@ -1,6 +1,5 @@
 <?php
 
-
 $inputFile = fopen("data/temperatures-sample.csv", "r");
 $outputFile = fopen("temperatures-filtered.csv", "w");
 
@@ -24,4 +23,3 @@ while (!feof($inputFile)) {
 
 fclose($inputFile);
 fclose($outputFile);
-

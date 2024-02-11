@@ -1,6 +1,5 @@
 <?php
 
-
 $sampleData = [
     ['type' => 'apple', 'weight' => 0.21],
     ['type' => 'orange', 'weight' => 0.18],
