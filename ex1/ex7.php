@@ -1,7 +1,7 @@
 <?php
 
 function getDaysUnderTemp(int $targetYear, float $targetTemp): float {
-    $inputFile = fopen("data/temperatures-filtered.csv", "r");
+    $inputFile = fopen(__DIR__ . '\\data\\temperatures-filtered.csv', "r");
 
     $countHours = 0;
 

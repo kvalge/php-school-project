@@ -1,7 +1,7 @@
 <?php
 
 function getDaysUnderTempDictionary(float $targetTemp): array {
-    $inputFile = fopen(__DIR__ . '\temperatures-filtered.csv', "r");
+    $inputFile = fopen(__DIR__ . '\\data\\temperatures-filtered.csv', "r");
 
     $temperatureDict = [];
 
@@ -9,7 +9,7 @@ function getDaysUnderTempDictionary(float $targetTemp): array {
         while (!feof($inputFile)) {
             $dict = fgetcsv($inputFile);
 
-            if ($dict && count($dict) >= 4 && floatval($dict[4]) <= $targetTemp) {
+            if ($dict && floatval($dict[4]) <= $targetTemp) {
                 if (array_key_exists(intval($dict[0]), $temperatureDict)) {
                     $temperatureDict[$dict[0]] += 1 / 24;
                 } else {
@@ -39,5 +39,6 @@ function dictToString(array $dict): string {
     return substr($toString, 0, -2) . ']';
 }
 
-var_dump(dictToString(getDaysUnderTempDictionary(-10)));
+var_dump(getDaysUnderTempDictionary(-10));
+
 
