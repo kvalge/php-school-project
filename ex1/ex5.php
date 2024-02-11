@@ -32,7 +32,6 @@ function getAverageWeightsByType(array $list): array {
     }
 
     $resultDict = [];
-
     foreach ($dict as $key => $value) {
         $countFruits = array_count_values($fruitList);
         $count = $countFruits[$key];

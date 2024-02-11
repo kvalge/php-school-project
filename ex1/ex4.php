@@ -13,5 +13,6 @@ function stringToIntegerList(string $input): array {
     return $intList;
 }
 
+
 // check that the restored list is the same as the input list.
 // var_dump($list === [1, 4, 2, 0]); // should print "bool(true)"
