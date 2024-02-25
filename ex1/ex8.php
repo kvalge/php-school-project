@@ -38,7 +38,3 @@ function dictToString(array $dict): string {
     }
     return substr($toString, 0, -2) . ']';
 }
-
-var_dump(getDaysUnderTempDictionary(-10));
-
-

@@ -17,5 +17,3 @@ function getDaysUnderTemp(int $targetYear, float $targetTemp): float {
 
     return round($countHours / 24, 2);
 }
-
-print getDaysUnderTemp(2021, -10);
