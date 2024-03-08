@@ -1,7 +1,7 @@
 <?php
 
 require_once '../ex1/ex7.php'; // use existing code
-require_once '../ex1/ex8.php';
+require_once '../ex2/functions.php';
 require_once 'functions.php'; // separate functions from main program
 
 $opts = getopt('c:y:t:', ['command:', 'year:', 'temp:']);
