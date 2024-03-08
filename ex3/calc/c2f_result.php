@@ -23,8 +23,8 @@ if ($input === null || $input === '') {
 </head>
 <body>
 <nav>
-    <a href="index.html">Celsius to Fahrenheit</a> |
-    <a href="f2c.html">Fahrenheit to Celsius</a>
+    <a href="index.html" id="c2f">Celsius to Fahrenheit</a> |
+    <a href="f2c.html" id="f2c">Fahrenheit to Celsius</a>
 </nav>
 <main>
     <h3>Celsius to Fahrenheit</h3>

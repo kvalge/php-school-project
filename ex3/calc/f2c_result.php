@@ -11,7 +11,7 @@ if ($input === null || $input === '') {
 } else {
     $input_temp = floatval($input);
     $result = f2c($input_temp);
-    $message = sprintf("%d degrees in Fahrenheit is %.2f degrees in Celsius", $input_temp, $result);
+    $message = sprintf("%d degrees in Fahrenheit is %d degree in Celsius", $input_temp, $result);
 }
 ?>
 
