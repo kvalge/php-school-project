@@ -12,7 +12,7 @@
             <table border="0" width="100%">
                 <tr>
                     <td>
-                        <?php include 'menu.html' ?>
+                        <?php include 'pages/menu.html' ?>
                     </td>
                 </tr>
                 <tr>
@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <?php include 'footer.html' ?>
+                        <?php include 'pages/footer.html' ?>
                     </td>
                 </tr>
             </table>

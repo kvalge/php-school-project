@@ -11,7 +11,8 @@
         <td width="700px">
             <table border="0" width="100%">
                 <tr>
-                    <?php include 'pages/menu.html' ?>
+                    <?php include 'hw2/menu.html' ?>
+                </tr>
         </td>
     </tr>
     <tr>
@@ -29,7 +30,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <img src="resources/employee1.jpg" alt="employee1" width="140px">
+                                                <img src="hw2/employee1.jpg" alt="employee1" width="140px">
                                             </td>
                                             <td>
                                                 Employee<br>
@@ -83,7 +84,7 @@
         <td></td>
     </tr>
 </table>
-<?php include 'pages/footer.html' ?>
+<?php include 'hw2/footer.html' ?>
 <td></td>
 </body>
 </html>
