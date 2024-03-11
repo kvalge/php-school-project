@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
-
 <body id="dashboard-page">
 <table border="0" width="100%">
     <tr>
@@ -31,7 +30,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <img src="hw2/employee1.jpg" alt="employee1" width="140px">
+                                                pilt
                                             </td>
                                             <td>
                                                 Employee<br>
@@ -44,7 +43,7 @@
                         </table>
                     </td>
                     <td>
-                        <table width="100%" height="110px"
+                        <table width="100%"
                                style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                             <tr>
                                 <td>
@@ -59,6 +58,9 @@
                     <td>
                         <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                             <tr>
+                                <td>
+                                    pilt
+                                </td>
                                 <td>
                                     Employee<br>
                                     Manager
@@ -77,7 +79,7 @@
                         </table>
                     </td>
                 </tr>
-                <br>
+
             </table>
         </td>
     </tr>

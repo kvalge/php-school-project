@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Task list</title>
 </head>
-
 <body id="task-list-page">
 <table border="0" width="100%">
     <tr>

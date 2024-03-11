@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Employee form</title>
 </head>
-
 <body id="employee-form-page">
 <table border="0" width="100%">
     <tr>
