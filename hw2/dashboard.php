@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
-
 <body id="dashboard-page">
 <table border="0" width="100%">
     <tr>
@@ -49,6 +48,94 @@
                                             <td>
                                                 Task<br>
                                                 1
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Employee<br>
+                                                Manager
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Task<br>
+                                                2
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Employee<br>
+                                                Manager
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Task<br>
+                                                3
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Employee<br>
+                                                Manager
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Task<br>
+                                                4
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Employee<br>
+                                                Manager
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <tr>
+                                            <td>
+                                                Task<br>
+                                                5
                                             </td>
                                         </tr>
                                     </table>
