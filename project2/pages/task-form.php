@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task form</title>
+</head>
+<body id="task-form-page">
+<table border="0" width="100%">
+    <tr>
+        <td></td>
+        <td width="700px">
+            <table border="0" width="100%">
+                <tr>
+                    <td>
+                        <?php include 'menu.html' ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table border="0" width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                            <tr>
+                                <td colspan="2" width="40%" style="background-color: #91c8e4; padding: 5px">Add
+                                    Employee
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table border="0" align="center">
+                                        <tr>
+                                            <td>
+                                                <div style="width: 500px">
+                                                    <form method="POST" action="?">
+                                                        <br>
+                                                        <div>
+                                                            <label for="description">Description</label>
+                                                            <textarea id="description" name="description" rows="3"
+                                                                      cols="40"></textarea>
+                                                        </div>
+                                                        <br>
+                                                        <div>
+                                                            <label>Estimate</label>
+                                                            <input type="radio" name="estimate" value="1"> 1
+                                                            <input type="radio" name="estimate" value="2"> 2
+                                                            <input type="radio" name="estimate" value="3"> 3
+                                                            <input type="radio" name="estimate" value="4"> 4
+                                                            <input type="radio" name="estimate" value="5"> 5
+                                                        </div>
+                                                        <br>
+                                                        <div>
+                                                            <label for="selection">Assigned to</label>
+                                                            <select id="selection">
+                                                                <option></option>
+                                                                <option value="o1">Option 1</option>
+                                                                <option value="o1">Option 2</option>
+                                                            </select>
+                                                        </div>
+                                                        <br>
+                                                        <div align="right">
+                                                            <button type="submit" name="submitButton"
+                                                                    value="task">Save
+                                                            </button>
+                                                        </div>
+                                                        <br>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <br>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php include 'footer.html' ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>
