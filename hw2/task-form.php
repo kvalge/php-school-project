@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Task form</title>
 </head>
+
 <body id="task-form-page">
 <table border="0" width="100%">
     <tr>
