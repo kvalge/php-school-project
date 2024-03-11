@@ -1,6 +1,5 @@
 <?php
 
-
 function displayEmployees() {
     $employeeList = [];
     $readData = fopen('hw2/employees.txt', 'r');

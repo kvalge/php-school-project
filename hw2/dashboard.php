@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
+
 <body id="dashboard-page">
 <table border="0" width="100%">
     <tr>
