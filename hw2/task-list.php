@@ -43,7 +43,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #48afe3"><?php include 'hw2/footer.html' ?></p>
+                        <p style="color: #48afe3">
+                            <?php include 'hw2/footer.html' ?>
+                        </p>
                     </td>
                 </tr>
             </table>
