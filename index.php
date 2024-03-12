@@ -33,18 +33,18 @@ if ($command === 'show-dashboard' && !$inserted_data) {
 }
 
 if ($inserted_data === 'employee') {
-    $encodedName = urlencode($firstName . ',' . $lastName);
+    $encodedName = urlencode($firstName . ',' . $lastName . "\n");
     $data = fopen('hw2/employees.txt', 'a');
-    fwrite($data, $encodedName . "\n");
+    fwrite($data, $encodedName);
     fclose($data);
 
     $page = 'employee-list';
     displayEmployees();
 
 } elseif ($inserted_data === 'task') {
-    $encodedName = urlencode($description . ',' . $estimate);
+    $encodedName = urlencode($description . ',' . $estimate . "\n");
     $data = fopen('hw2/tasks.txt', 'a');
-    fwrite($data, $encodedName . "\n");
+    fwrite($data, $encodedName);
     fclose($data);
 
     displayTasks();
