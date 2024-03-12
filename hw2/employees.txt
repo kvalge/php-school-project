@@ -1,6 +1,6 @@
-Kati%2CKaru
-Juta%2CJ%C3%A4nku
-Rein%2CRebase
-Uus%2CT%C3%B6%C3%B6taja%5Cn
-%5CnUus%2CT%C3%B6%C3%B6taja%5Cn
-Juta%2CKaru
+Kati,Karu
+Juta,J%C3%A4nku
+Rein%2C+Voldemar,Rebase
+Juta,Karu
+..%2C%2C%21,%2C%2C..%21
+Juta%2C+Kati,Karu+Rebane

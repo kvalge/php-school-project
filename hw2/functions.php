@@ -5,10 +5,9 @@ function displayEmployees() {
     $readData = fopen('hw2/employees.txt', 'r');
 
     while (($line = fgets($readData)) !== false) {
-        $decodedName = urldecode($line);
-        $employeeList[] = $decodedName;
+        $exploded = explode(',', $line);
+        $employeeList[] = [urldecode($exploded[0]), urldecode($exploded[1])];
     }
-
     fclose($readData);
 
     $employees = $employeeList;
@@ -20,12 +19,16 @@ function displayTasks() {
     $readData = fopen('hw2/tasks.txt', 'r');
 
     while (($line = fgets($readData)) !== false) {
-        $decodedTask = urldecode($line);
-        $taskList[] = $decodedTask;
-    }
+        $exploded = explode(',', $line);
 
+        $taskList[urldecode($exploded[0])] = $exploded[1];
+    }
     fclose($readData);
 
+    $tasks = [];
+    if ($taskList) {
+        $tasks = $taskList;
+    }
     $tasks = $taskList;
     include 'hw2/task-list.php';
 }

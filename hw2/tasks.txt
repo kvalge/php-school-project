@@ -1,5 +1,4 @@
-T%C3%B6%C3%B6%C3%BClesanne%2C1
-Peo+korraldamine%2C5
-Koolitus%2C3
-koolitus+%5Cn%2C2
-%C3%BCl%2C1
+%C3%9Clesanne,1
+.%2C.%2C,2
+uus%2C+%C3%BClesanne,1
+Peo+korraldamine%21%21%21,5

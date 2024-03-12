@@ -33,14 +33,13 @@
                             </tr>
                             <tr>
                                 <td width="90%">
-                                    <?php foreach ($tasks as $key => $task) : ?>
-                                        <?php list($description, $estimate) = explode(',', $task); ?>
+                                    <?php foreach ($tasks as $key => $value) : ?>
                                         <table width="100%"
                                                style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                                             <tr>
                                                 <td>
-                                                    Description: <?php echo $description; ?><br>
-                                                    Estimate: <?php echo $estimate; ?><br>
+                                                    Description: <?php echo $key; ?><br>
+                                                    Estimate: <?php echo $value; ?><br>
                                                 </td>
                                                 <td align="right"><a href="">Edit</a></td>
                                             </tr>

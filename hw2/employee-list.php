@@ -34,7 +34,6 @@
                             <tr>
                                 <td width="100%">
                                     <?php foreach ($employees as $key => $employee) : ?>
-                                    <?php list($first_name, $last_name) = explode(',', $employee); ?>
                                     <table width="100%"
                                            style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                                             <tr>
@@ -43,7 +42,8 @@
                                                         <tr>
                                                             <td>pilt</td>
                                                             <td align="">
-                                                                <?php echo $first_name; ?> <?php echo $last_name; ?><br>
+                                                                <?php echo $employee[0]; ?>
+                                                                <?php echo $employee[1]; ?><br>
                                                                 Ametikoht
                                                             </td>
                                                         </tr>
