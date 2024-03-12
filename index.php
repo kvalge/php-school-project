@@ -7,7 +7,12 @@ require_once 'hw2/functions.php';
 $command = $_GET['command'] ?? 'show-dashboard';
 $page = $_GET['page'] ?? 'dashboard';
 $command = $_POST['command'] ?? 'show-dashboard';
-$inserted_data = $_POST['submitButton'];
+
+$inserted_data = '';
+if (isset($_POST['submitButton'])) {
+    $inserted_data = $_POST['submitButton'];
+}
+
 $firstName = $_POST['firstName'] ?? null;
 $lastName = $_POST['lastName'] ?? null;
 $description = $_POST['description'] ?? null;
