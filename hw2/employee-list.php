@@ -20,11 +20,10 @@
                     <td>
                         <table width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                             <tr>
-                                <td colspan="2" width="40%" style="background-color: #91c8e4; padding: 5px">Employees
-                                </td>
+                                <td width="100%" style="background-color: #91c8e4; padding: 5px">Employees</td>
                             </tr>
                             <tr>
-                                <td width="90%">
+                                <td width="100%">
                                     <?php foreach ($employees as $key => $employee) : ?>
                                     <?php list($first_name, $last_name) = explode(',', $employee); ?>
                                     <table width="100%"
@@ -47,7 +46,6 @@
                                     <?php endforeach; ?>
                                 </td>
                             </tr>
-                            <br>
                         </table>
                     </td>
                 </tr>

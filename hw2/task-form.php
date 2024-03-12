@@ -24,7 +24,7 @@
                     <td>
                         <table border="0" width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                             <tr>
-                                <td colspan="2" width="40%" style="background-color: #91c8e4; padding: 5px">Add
+                                <td width="100%" style="background-color: #91c8e4; padding: 5px">Add
                                     Employee
                                 </td>
                             </tr>
@@ -73,7 +73,6 @@
                                     </table>
                                 </td>
                             </tr>
-                            <br>
                         </table>
                     </td>
                 </tr>
