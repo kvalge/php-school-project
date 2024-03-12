@@ -13,11 +13,7 @@
             <table border="0" width="100%">
                 <tr>
                     <td>
-                        <a href="?command=show-dashboard&page=dashboard" id="dashboard">Dashboard</a> |
-                        <a href="?command=show-list&page=employee-list" id="employee-list-link">Employees</a> |
-                        <a href="?command=show-form&page=employee-form" id="employee-form-link">Add Employee</a> |
-                        <a href="?command=show-list&page=task-list" id="task-list-link">Tasks</a> |
-                        <a href="?command=show-form&page=task-form" id="task-form-link">Add Task</a>
+                        <?php include 'hw2/menu.html'; ?>
                     </td>
                 </tr>
                 <tr>
