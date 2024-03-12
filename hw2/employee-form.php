@@ -82,9 +82,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #48afe3">
-                            <?php include 'hw2/footer.html' ?>
-                        </p>
+                        <p style="color: #48afe3">icd0007 Employee and Task Management Application</p>
                     </td>
                 </tr>
             </table>
