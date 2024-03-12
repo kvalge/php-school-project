@@ -13,7 +13,7 @@
             <table border="0" width="100%">
                 <tr>
                     <td>
-                        <?php include 'hw2/menu.html' ?>
+                        <?php include 'hw2/menu.html'; ?>
                     </td>
                 </tr>
                 <tr>
@@ -45,7 +45,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <?php include 'hw2/footer.html' ?>
+                        <?php include 'hw2/footer.html'; ?>
                     </td>
                 </tr>
             </table>
