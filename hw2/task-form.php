@@ -13,21 +13,13 @@
             <table border="0" width="100%">
                 <tr>
                     <td>
-                        <a href="?command=show-dashboard&page=dashboard"
-                           id="dashboard">Dashboard</a> |
-                        <a href="?command=show-list&page=employee-list"
-                           id="employee-list-link">Employees</a> |
-                        <a href="?command=show-form&page=employee-form"
-                           id="employee-form-link">Add Employee</a> |
-                        <a href="?command=show-list&page=task-list"
-                           id="task-list-link">Tasks</a> |
-                        <a href="?command=show-form&page=task-form"
-                           id="task-form-link">Add Task</a>
+                        <?php include 'hw2/menu.html' ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <table border="0" width="100%" style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                        <table border="0" width="100%"
+                               style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                             <tr>
                                 <td width="100%" style="background-color: #91c8e4; padding: 5px">Add
                                     Employee
@@ -83,7 +75,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #48afe3">icd0007 Employee and Task Management Application</p>
+                        <p style="color: #48afe3"><?php include 'hw2/footer.html' ?></p>
                     </td>
                 </tr>
             </table>

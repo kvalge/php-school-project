@@ -13,16 +13,7 @@
             <table border="0" width="100%">
                 <tr>
                     <td>
-                        <a href="?command=show-dashboard&page=dashboard"
-                           id="dashboard">Dashboard</a> |
-                        <a href="?command=show-list&page=employee-list"
-                           id="employee-list-link">Employees</a> |
-                        <a href="?command=show-form&page=employee-form"
-                           id="employee-form-link">Add Employee</a> |
-                        <a href="?command=show-list&page=task-list"
-                           id="task-list-link">Tasks</a> |
-                        <a href="?command=show-form&page=task-form"
-                           id="task-form-link">Add Task</a>
+                        <?php include 'hw2/menu.html' ?>
                     </td>
                 </tr>
                 <tr>
@@ -34,8 +25,8 @@
                             <tr>
                                 <td width="100%">
                                     <?php foreach ($employees as $key => $employee) : ?>
-                                    <table width="100%"
-                                           style="border-color: #91c8e4; border-width: 1px; border-style: solid">
+                                        <table width="100%"
+                                               style="border-color: #91c8e4; border-width: 1px; border-style: solid">
                                             <tr>
                                                 <td>
                                                     <table>
@@ -51,7 +42,7 @@
                                                 </td>
                                                 <td align="right"><a href="">Edit</a></td>
                                             </tr>
-                                    </table>
+                                        </table>
                                     <?php endforeach; ?>
                                 </td>
                             </tr>
@@ -60,7 +51,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #48afe3">icd0007 Employee and Task Management Application</p>
+                        <p style="color: #48afe3"><?php include 'hw2/footer.html' ?></p>
                     </td>
                 </tr>
             </table>
