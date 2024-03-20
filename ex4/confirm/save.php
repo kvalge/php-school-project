@@ -4,7 +4,7 @@ saveData($_GET['data']);
 
 // redirect to index.php passing message about success or failure
 
-header('Location: index.php?message=' . 'success');
+header('Location: index.php?message-success');
 
 function saveData(string $data) {
     // log to server console (for debugging)

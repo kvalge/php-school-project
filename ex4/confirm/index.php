@@ -1,9 +1,9 @@
 <?php
 
-    $messages = [
-            'success' => 'Andmed salvestatud!',
-            'error' => 'Viga salvestamisel!',
-        ];
+$messages = [
+    'success' => 'Andmed salvestatud!',
+    'error' => 'Viga salvestamisel!',
+];
 
 $messageKey = $_GET['message'] ?? null;
 $message = $messages[$messageKey] ?? null;
@@ -18,11 +18,10 @@ $message = $messages[$messageKey] ?? null;
 </head>
 <body id="form-page">
 
-
 <?php if ($message): ?>
-<h3>
-    <?= $message ?>
-</h3>
+    <h3>
+        <?= $message ?>
+    </h3>
 <?php endif; ?>
 
 <br>
@@ -30,7 +29,7 @@ $message = $messages[$messageKey] ?? null;
 <form method="post" action="confirm.php">
     <label for="ta">Andmed:</label>
 
-    <input id="ta" name="data" />
+    <input id="ta" name="data"/>
 
     <button name="sendButton" type="submit">Salvesta</button>
 </form>

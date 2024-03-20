@@ -1,7 +1,6 @@
 <?php
 
 $data = urlencode($_POST['data']);
-var_dump($data);
 
 ?>
 
@@ -18,7 +17,7 @@ var_dump($data);
 
 <a href="." id="cancel">Tühista</a>
 
-<a href="save.php?data=<?= $data?>" id="confirm">Kinnita</a>
+<a href="save.php?data=<?= $data ?>" id="confirm">Kinnita</a>
 
 </body>
 </html>
