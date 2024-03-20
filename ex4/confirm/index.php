@@ -19,7 +19,7 @@ $message = $messages[$messageKey] ?? null;
 <body id="form-page">
 
 <?php if ($message): ?>
-    <h3 id="message-<?= $message ?>">
+    <h3 id="message-success">
         <?= $message ?>
     </h3>
 <?php endif; ?>
