@@ -50,7 +50,7 @@ $message = $_GET['message'] ?? null;
                 </div>
                 <form method="post" action="functions.php">
                     <input type="hidden" name="employeeId" value="<?php echo $employee[0]; ?>">
-                    <button type="submit" name="deleteButton" value="<?php echo $employee[0]; ?>">Delete
+                    <button id="<?php echo"employee-edit-link-" . $employee[0] ?>" type="submit" name="deleteButton" value="<?php echo $employee[0]; ?>">Delete
                     </button>
                 </form>
             </div>
