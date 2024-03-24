@@ -31,6 +31,7 @@ $lastName = $_GET['last_name'] ?? null;
 ?>
 
 <div class="container">
+
     <?php if ($message): ?>
         <div class="message-error" id="error-block"><?= $message ?></div>
     <?php endif; ?>
@@ -70,7 +71,10 @@ $lastName = $_GET['last_name'] ?? null;
     </div>
 </div>
 
-<?php include 'footer.html' ?>
+<div class="footer">
+    <hr>
+    icd0007 Employee and Task Management Application
+</div>
 </body>
 
 </html>

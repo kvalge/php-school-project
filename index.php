@@ -22,7 +22,11 @@
 </nav>
 
 <div class="container"></div>
-<?php include 'footer.html' ?>
+
+<div class="footer">
+    <hr>
+    icd0007 Employee and Task Management Application
+</div>
 
 </body>
 
