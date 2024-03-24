@@ -14,9 +14,12 @@ require_once 'functions.php';
 
 <body id="employee-list-page">
 
-<?php include 'menu.html';
+<?php include 'menu.html' ?>
+
+<?php
 
 $message = $_GET['message'] ?? null;
+
 ?>
 
 <div class="container">

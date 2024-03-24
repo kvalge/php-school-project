@@ -11,9 +11,11 @@
 <?php include 'menu.html' ?>
 
 <?php
+
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
 $description = $_GET['description'] ?? null;
+
 ?>
 
 <div class="container">

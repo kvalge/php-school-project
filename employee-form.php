@@ -8,11 +8,15 @@
 
 <body id="employee-form-page">
 
-<?php include 'menu.html';
+<?php include 'menu.html' ?>
+
+<?php
+
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
 $firstName = $_GET['first_name'] ?? null;
 $lastName = $_GET['last_name'] ?? null;
+
 ?>
 
 <div class="container">

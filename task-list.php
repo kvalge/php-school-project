@@ -14,9 +14,13 @@ require_once 'functions.php';
 
 <body id="task-list-page">
 
-<?php include 'menu.html';
+<?php include 'menu.html' ?>
 
-$message = $_GET['message'] ?? null; ?>
+<?php
+
+$message = $_GET['message'] ?? null;
+
+?>
 
 <div class="container">
     <?php if ($message): ?>
