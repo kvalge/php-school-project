@@ -1,0 +1,161 @@
+<?php
+
+
+ini_set('display_errors', '1');
+
+const EMPLOYEES_FILE = 'employees.txt';
+const TASKS_FILE = 'tasks.txt';
+const NEXT_EMPLOYEE_ID_FILE = 'next-employee-id.txt';
+const NEXT_TASK_ID_FILE = 'next-task-id-txt';
+
+
+$id = $_POST['id'] ?? null;
+$firstName = $_POST['firstName'] ?? null;
+$lastName = $_POST['lastName'] ?? null;
+$description = $_POST['description'] ?? null;
+$estimate = $_POST['estimate'] ?? null;
+
+$inserted_data = '';
+if (isset($_POST['submitButton'])) {
+    $inserted_data = $_POST['submitButton'];
+}
+
+if ($inserted_data === 'employee') {
+    if (strlen($firstName) < 1 || strlen($firstName) > 21) {
+        $message = 'Length of the first name should be 1 - 21!';
+        header('Location: employee-form.php?message=' . urlencode($message)
+            . '&first_name=' . $firstName . '&last_name=' . $lastName);
+    } elseif (strlen($lastName) < 2 || strlen($lastName) > 22) {
+        $message = 'Length of the last name should be 2 - 22!';
+        header('Location: employee-form.php?message=' . urlencode($message)
+            . '&first_name=' . $firstName . '&last_name=' . $lastName);
+    } else {
+        $newId = getNewId(NEXT_EMPLOYEE_ID_FILE);
+        $employees = getEmployees();
+        foreach ($employees as $employee) {
+            if ($id === $employee[0]) {
+                deleteEmployee($id);
+                $newId = $id;
+            }
+        }
+        $encodedName = $newId . ',' . urlencode($firstName) . ',' . urlencode($lastName) . "\n";
+        writeData(EMPLOYEES_FILE, $encodedName);
+
+        $message = 'Employee is added!';
+        header('Location: employee-list.php?message=' . urlencode($message));
+    }
+
+} elseif ($inserted_data === 'task') {
+    $description = trim($description);
+    if (strlen($description) < 5 || strlen($description) > 40) {
+        $message = 'Length of the description should be 5 - 40!';
+        header('Location: task-form.php?message=' . urlencode($message)
+            . '&description=' . $description);
+    } else {
+        $newId = getNewId(NEXT_TASK_ID_FILE);
+        $tasks = getTasks();
+        foreach ($tasks as $task) {
+            if ($id === $task[0]) {
+                deleteTask($id);
+                $newId = $id;
+            }
+        }
+        $encodedTask = $newId . ',' . urlencode($description) . ',' . $estimate . "\n";
+        writeData(TASKS_FILE, $encodedTask);
+
+        $message = 'Task is added!';
+        header('Location: task-list.php?message=' . urlencode($message));
+    }
+}
+
+if (isset($_POST['deleteButton'])) {
+    if ($_POST['employeeId']) {
+        deleteEmployee($_POST['employeeId']);
+
+        $message = 'Employee is Deleted!';
+        header('Location: employee-list.php?message=' . urlencode($message));
+
+    } elseif ($_POST['taskId']) {
+        deleteTask($_POST['taskId']);
+
+        $message = 'Task is Deleted!';
+        header('Location: task-list.php?message=' . urlencode($message));
+    }
+}
+
+function getEmployees() {
+    $employeeList = [];
+    $readData = fopen(EMPLOYEES_FILE, 'r');
+
+    if ($readData) {
+        while (($line = fgets($readData)) !== false) {
+            $exploded = explode(',', $line);
+
+            $employeeList[] = [$exploded[0] ?? '',
+                isset($exploded[1]) ? urldecode($exploded[1]) : '',
+                isset($exploded[2]) ? urldecode($exploded[2]) : ''];
+        }
+        fclose($readData);
+
+        return $employeeList;
+    }
+    return '';
+}
+
+function getTasks() {
+    $taskList = [];
+    $readData = fopen(TASKS_FILE, 'r');
+
+    if ($readData) {
+        while (($line = fgets($readData)) !== false) {
+            $exploded = explode(',', $line);
+
+            $taskList[] = [$exploded[0] ?? '',
+                isset($exploded[1]) ? urldecode($exploded[1]) : '',
+                isset($exploded[2]) ? urldecode($exploded[2]) : ''];
+        }
+        fclose($readData);
+
+        return $taskList;
+    }
+    return '';
+}
+
+function deleteEmployee(string $id) {
+    $employees = getEmployees();
+    $data = [];
+    foreach ($employees as $employee) {
+        if ($employee[0] !== $id) {
+            $encodedName = $employee[0] . ',' . urlencode($employee[1]) . ',' . urlencode($employee[2]) . "\n";
+            $data[] = $encodedName;
+        }
+    }
+    file_put_contents(EMPLOYEES_FILE, $data);
+}
+
+function deleteTask(string $id) {
+    $tasks = getTasks();
+    $data = [];
+    foreach ($tasks as $task) {
+        if ($task[0] !== $id) {
+            $encodedTask = $task[0] . ',' . urlencode($task[1]) . ',' . $task[2];
+            $data[] = $encodedTask;
+        }
+    }
+    file_put_contents(TASKS_FILE, implode('', $data));
+}
+
+function writeData(string $file, string $encodedName) {
+    $data = fopen($file, 'a');
+    fwrite($data, $encodedName);
+    fclose($data);
+
+    return $data;
+}
+
+function getNewId(string $file): string {
+    $id = file_get_contents($file);
+    file_put_contents($file, intval($id) + 1);
+
+    return $id;
+}
