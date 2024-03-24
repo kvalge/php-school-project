@@ -46,7 +46,7 @@ $message = $_GET['message'] ?? null;
                 Estimate: <?php echo $task[2]; ?><br>
             </div>
             <div class="edit">
-                <a id="task-edit-link-<?php echo $task[0]; ?>" href="task-form.php?id=<?php echo $task[0]; ?>&description=<?php echo $task[1]; ?>">Edit</a>
+                <a id="<?php echo"task-edit-link-" . $task[0] ?>" href="task-form.php?id=<?php echo $task[0]; ?>&description=<?php echo $task[1]; ?>">Edit</a>
             </div>
             <form method="post" action="functions.php">
                 <input type="hidden" name="taskId" value="<?php echo $task[0]; ?>">
