@@ -41,10 +41,7 @@ $description = $_GET['description'] ?? null;
             <div class="textarea">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" rows="3"
-                          cols="50"><?php if ($description): ?>
-                        <?php echo $description; ?>
-                    <?php endif; ?></textarea>
+                <textarea id="description" name="description" rows="3" cols="50"><?php if ($description): ?><?php echo $description; ?><?php endif; ?></textarea>
             </div>
             <br>
             <div>

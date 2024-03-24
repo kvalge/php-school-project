@@ -42,10 +42,8 @@ $message = $_GET['message'] ?? null;
     <?php foreach (getEmployees() as $key => $employee) : ?>
         <div class="list-container">
             <div data-employee-id="<?php $employee[0] ?>">
-                image
                 <?php echo $employee[1]; ?>
                 <?php echo $employee[2]; ?><br>
-                Position
                 <div class="edit">
                     <a id="employee-edit-link-<?php echo $employee[0]; ?>" href="employee-form.php?id=<?php echo $employee[0]; ?>&first_name=<?php echo $employee[1]; ?>&last_name=<?php echo $employee[2]; ?>">Edit</a>
                 </div>
