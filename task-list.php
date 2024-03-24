@@ -42,7 +42,7 @@ $message = $_GET['message'] ?? null;
     <?php foreach (getTasks() as $key => $task) : ?>
         <div class="list-container">
             <div>
-                <div data-task-id="<?php $task[0] ?>">Description: <?php echo $task[1]; ?></div><br>
+                <div data-task-id="<?php $task[0] ?>"><?php echo $task[1]; ?></div><br>
                 Estimate: <?php echo $task[2]; ?><br>
             </div>
             <div class="edit">
