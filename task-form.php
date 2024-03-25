@@ -63,9 +63,7 @@ $estimate = $_GET['estimate'] ?? null;
                 <input type="hidden" name="taskId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton" value="<?php echo $id; ?>">Delete</button>
             <?php endif; ?>
-            <button type="submit" name="submitButton"
-                    value="task">Save
-            </button>
+            <button type="submit" name="submitButton" value="task">Save</button>
             <br>
         </form>
     </div>
