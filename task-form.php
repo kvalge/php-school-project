@@ -26,6 +26,7 @@
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
 $description = isset($_GET['description']) ? urldecode($_GET['description']) : null;
+$estimate = $_GET['estimate'] ?? null;
 
 ?>
 
@@ -41,22 +42,30 @@ $description = isset($_GET['description']) ? urldecode($_GET['description']) : n
             <div class="textarea">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" rows="3" cols="50"><?php if ($description): ?><?php echo $description; ?><?php endif; ?></textarea>
+                <textarea id="description" name="description" rows="3"
+                          cols="50"><?php if ($description): ?><?php echo $description; ?><?php endif; ?></textarea>
             </div>
             <br>
             <div>
-                <label>Estimate </label>
-                <input type="radio" name="estimate" value="1"> 1
-                <input type="radio" name="estimate" value="2"> 2
-                <input type="radio" name="estimate" value="3"> 3
-                <input type="radio" name="estimate" value="4"> 4
-                <input type="radio" name="estimate" value="5"> 5
-            </div>
+                <?php foreach (range(1, 5) as $est): ?>
+
+                    <label>
+                        <input type="radio"
+                               name="estimate"
+                            <?= strval($est) === trim(strval($estimate)) ? 'checked' : ''; ?>
+                               value="<?= $est ?>"/>
+                        <?= strval($est) ?>
+                    </label>
+
+                <?php endforeach; ?> </div>
             <br>
+            <?php if ($id): ?>
             <div>
-                <button type="submit" name="submitButton"
-                        value="task">Save
-                </button>
+                <input type="hidden" name="taskId" value="<?php echo $id; ?>">
+                <button type="submit" name="deleteButton" value="<?php echo $id; ?>">Delete</button>
+                <?php endif; ?>
+
+                <button type="submit" name="submitButton" value="task">Save</button>
             </div>
             <br>
         </form>

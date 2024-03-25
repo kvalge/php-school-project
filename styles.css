@@ -76,6 +76,10 @@ button {
     margin-bottom: 10px;
 }
 
+button[name="deleteButton"] {
+    background-color: #c50d38;
+}
+
 .message-success {
     color: #1e6d94;
     background-color: #2bc785;
