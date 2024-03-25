@@ -25,7 +25,7 @@
 
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
-$description = $_GET['description'] ?? null;
+$description = isset($_GET['description']) ? urldecode($_GET['description']) : null;
 
 ?>
 

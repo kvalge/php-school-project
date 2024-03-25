@@ -46,7 +46,7 @@ $message = $_GET['message'] ?? null;
                     <?php echo $employee[1] . ' ' . $employee[2]; ?>
                 </div>
                 <div class="edit">
-                     <a id="employee-edit-link-<?php $employee[0] ?>" href="employee-form.php?id=<?php echo $employee[0]; ?>&first_name=<?php echo $employee[1]; ?>&last_name=<?php echo $employee[2]; ?>">Edit</a>
+                     <a id="employee-edit-link-<?php $employee[0] ?>" href="employee-form.php?id=<?php echo $employee[0]; ?>&first_name=<?php echo urlencode($employee[1]); ?>&last_name=<?php echo urlencode($employee[2]); ?>">Edit</a>
                 </div>
                 <form method="post" action="functions.php">
                     <input type="hidden" name="employeeId" value="<?php echo $employee[0]; ?>">

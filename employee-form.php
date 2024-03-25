@@ -25,8 +25,8 @@
 
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
-$firstName = $_GET['first_name'] ?? null;
-$lastName = $_GET['last_name'] ?? null;
+$firstName = isset($_GET['first_name']) ? urldecode($_GET['first_name']) : null;
+$lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
 
 ?>
 
