@@ -60,13 +60,12 @@ $estimate = $_GET['estimate'] ?? null;
                 <?php endforeach; ?> </div>
             <br>
             <?php if ($id): ?>
-            <div>
                 <input type="hidden" name="taskId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton" value="<?php echo $id; ?>">Delete</button>
-                <?php endif; ?>
-
-                <button type="submit" name="submitButton" value="task">Save</button>
-            </div>
+            <?php endif; ?>
+            <button type="submit" name="submitButton"
+                    value="task">Save
+            </button>
             <br>
         </form>
     </div>
