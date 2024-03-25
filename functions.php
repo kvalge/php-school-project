@@ -130,7 +130,7 @@ function deleteEmployee(string $id) {
             $data[] = $encodedName;
         }
     }
-    file_put_contents(EMPLOYEES_FILE, $data);
+    file_put_contents(EMPLOYEES_FILE, implode('', $data));
 }
 
 function deleteTask(string $id) {

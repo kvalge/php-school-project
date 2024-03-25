@@ -40,7 +40,6 @@ $estimate = $_GET['estimate'] ?? null;
         <form method="POST" action="functions.php">
             <br>
             <div class="textarea">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" rows="3"
                           cols="50"><?php if ($description): ?><?php echo $description; ?><?php endif; ?></textarea>
@@ -59,10 +58,13 @@ $estimate = $_GET['estimate'] ?? null;
 
                 <?php endforeach; ?> </div>
             <br>
+
             <?php if ($id): ?>
                 <input type="hidden" name="taskId" value="<?php echo $id; ?>">
-                <button type="submit" name="deleteButton" value="<?php echo $id; ?>">Delete</button>
+                <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
+
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <button type="submit" name="submitButton" value="task">Save</button>
             <br>
         </form>

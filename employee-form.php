@@ -40,7 +40,6 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
     <div class="form-container">
         <form method="post" action="functions.php">
             <div>
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"
                     <?php if ($firstName): ?>
@@ -62,11 +61,13 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
                 No file chosen
             </div>
             <br>
+
             <?php if ($id): ?>
                 <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
-                <button type="submit" name="deleteButton" value="<?php echo $id; ?>">Delete</button>
+                <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
 
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <button type="submit" name="submitButton" value="employee">Save</button>
         </form>
     </div>
