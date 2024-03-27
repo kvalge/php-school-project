@@ -14,18 +14,7 @@ require_once 'functions.php';
 
 <body id="employee-list-page">
 
-<nav>
-    <a href="index.php"
-       id="dashboard-link">Dashboard</a> |
-    <a href="employee-list.php"
-       id="employee-list-link">Employees</a> |
-    <a href="employee-form.php"
-       id="employee-form-link">Add Employee</a> |
-    <a href="task-list.php"
-       id="task-list-link">Tasks</a> |
-    <a href="task-form.php"
-       id="task-form-link">Add Task</a>
-</nav>
+<?php include 'menu.html' ?>
 
 <?php
 
@@ -42,8 +31,11 @@ $message = $_GET['message'] ?? null;
     <?php foreach (getEmployees() as $key => $employee) : ?>
         <div class="list-container">
             <div>
+                <?php var_dump($employee[0]) ?>
                 <div data-employee-id="<?php $employee[0] ?>">
-                    <?php echo $employee[1] . ' ' . $employee[2]; ?>
+                    <?php if ($employee[0]) {
+                        echo $employee[1] . ' ' . $employee[2];
+                    } ?>
                 </div>
                 <div class="edit">
                     <a id="employee-edit-link-<?php $employee[0] ?>"
