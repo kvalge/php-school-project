@@ -73,7 +73,7 @@ $estimate = $_GET['estimate'] ?? null;
 
 <div class="footer">
     <hr>
-    <?php include 'menu.html' ?>
+    <?php include 'footer.html' ?>
 </div>
 
 </body>

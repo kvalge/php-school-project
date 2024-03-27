@@ -76,7 +76,7 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
 
 <div class="footer">
     <hr>
-    <?php include 'menu.html' ?>
+    <?php include 'footer.html' ?>
 </div>
 </body>
 

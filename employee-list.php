@@ -55,7 +55,7 @@ $message = $_GET['message'] ?? null;
 </div>
 
 <div class="footer">
-    <?php include 'menu.html' ?>
+    <?php include 'footer.html' ?>
 </div>
 
 </body>
