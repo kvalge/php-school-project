@@ -62,13 +62,14 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
             </div>
             <br>
 
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <button type="submit" name="submitButton" value="employee">Save</button>
+        </form>
+        <form method="post" action="functions.php">
             <?php if ($id): ?>
                 <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
-
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <button type="submit" name="submitButton" value="employee">Save</button>
         </form>
     </div>
 </div>

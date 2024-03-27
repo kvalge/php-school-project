@@ -58,15 +58,15 @@ $estimate = $_GET['estimate'] ?? null;
 
                 <?php endforeach; ?> </div>
             <br>
-
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <button type="submit" name="submitButton" value="task">Save</button>
+            <br>
+        </form>
+        <form method="POST" action="functions.php">
             <?php if ($id): ?>
                 <input type="hidden" name="taskId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
-
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <button type="submit" name="submitButton" value="task">Save</button>
-            <br>
         </form>
     </div>
 </div>

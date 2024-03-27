@@ -77,7 +77,7 @@ button {
 }
 
 button[name="deleteButton"] {
-    background-color: #c50d38;
+    background-color: #fa42a4;
 }
 
 .message-success {
@@ -90,7 +90,7 @@ button[name="deleteButton"] {
 
 .message-error {
     color: #640219;
-    background-color: #e31242;
+    background-color: #fa42a4;
     height: 25px;
     padding-top: 5px;
     padding-left: 5px;
