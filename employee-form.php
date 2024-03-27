@@ -76,7 +76,7 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
 
 <div class="footer">
     <hr>
-    icd0007 Employee and Task Management Application
+    <?php include 'menu.html' ?>
 </div>
 </body>
 
