@@ -12,10 +12,21 @@
 
 <?php
 
+require_once 'functions.php';
+
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
 $description = isset($_GET['description']) ? urldecode($_GET['description']) : null;
 $estimate = $_GET['estimate'] ?? null;
+
+if ($id) {
+    foreach (getTasks() as $key => $task) {
+        if ($task[0] == $id) {
+            $description = $task[1];
+            $estimate = $task[2];
+        }
+    }
+}
 
 ?>
 
@@ -61,7 +72,6 @@ $estimate = $_GET['estimate'] ?? null;
 </div>
 
 <div class="footer">
-    <hr>
     <?php include 'footer.html' ?>
 </div>
 

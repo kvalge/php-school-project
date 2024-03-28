@@ -8,14 +8,29 @@
 
 <body id="employee-form-page">
 
-<?php include 'menu.html' ?>
+<?php
+
+include 'menu.html';
+
+require_once 'functions.php';
+
+?>
 
 <?php
 
 $message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
-$firstName = isset($_GET['first_name']) ? urldecode($_GET['first_name']) : null;
-$lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
+$firstName = isset($_GET['first_name']) ? $_GET['first_name'] : null;
+$lastName = isset($_GET['last_name']) ? $_GET['last_name'] : null;
+
+if ($id) {
+    foreach (getEmployees() as $key => $employee) {
+        if ($employee[0] == $id) {
+            $firstName = $employee[1];
+            $lastName = $employee[2];
+        }
+    }
+}
 
 ?>
 
@@ -26,22 +41,19 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
     <?php endif; ?>
 
     <div class="title">Add Employee</div>
+
     <div class="form-container">
         <form method="post" action="functions.php">
             <div>
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"
-                    <?php if ($firstName): ?>
-                        value="<?php echo $firstName; ?>"
-                    <?php endif; ?>>
+                       value="<?php print $firstName; ?>">
             </div>
             <br>
             <div>
                 <label for="lastName">Last name:</label>
                 <input type="text" name="lastName" id="lastName" placeholder="2-22 characters"
-                    <?php if ($lastName): ?>
-                        value="<?php echo $lastName; ?>"
-                    <?php endif; ?>>
+                       value="<?php print $lastName; ?>">
             </div>
             <br>
             <div>
@@ -61,10 +73,10 @@ $lastName = isset($_GET['last_name']) ? urldecode($_GET['last_name']) : null;
             <?php endif; ?>
         </form>
     </div>
+
 </div>
 
 <div class="footer">
-    <hr>
     <?php include 'footer.html' ?>
 </div>
 </body>

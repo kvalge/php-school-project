@@ -14,9 +14,7 @@ require_once 'functions.php';
 
 <body id="task-list-page">
 
-<?php include 'menu.html' ?>
-
-<?php
+<?php include 'menu.html';
 
 $message = $_GET['message'] ?? null;
 
@@ -41,14 +39,13 @@ $message = $_GET['message'] ?? null;
             </div>
             <div class="edit">
                 <a id="task-edit-link-<?php $task[0] ?>"
-                   href="task-form.php?id=<?php echo $task[0]; ?>&description=<?php echo urlencode($task[1]); ?>&estimate=<?php echo urlencode($task[2]); ?>">Edit</a>
+                   href="task-form.php?id=<?php echo $task[0]; ?>">Edit</a>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
 
 <div class="footer">
-    <hr>
     <?php include 'footer.html' ?>
 </div>
 

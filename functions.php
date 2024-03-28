@@ -30,7 +30,7 @@ if ($inserted_data === 'employee') {
         header('Location: employee-form.php?message=' . urlencode($message)
             . '&first_name=' . $firstName . '&last_name=' . $lastName);
     } else {
-        $newId = getNewId(NEXT_EMPLOYEE_ID_FILE);
+        $newId = "";
         $employees = getEmployees();
         foreach ($employees as $employee) {
             if ($id === $employee[0]) {
@@ -38,6 +38,11 @@ if ($inserted_data === 'employee') {
                 $newId = $id;
             }
         }
+
+        if ($newId === "") {
+            $newId = getNewId(NEXT_EMPLOYEE_ID_FILE);
+        }
+
         $encodedName = $newId . ',' . urlencode($firstName) . ',' . urlencode($lastName) . "\n";
         writeData(EMPLOYEES_FILE, $encodedName);
 
@@ -52,13 +57,16 @@ if ($inserted_data === 'employee') {
         header('Location: task-form.php?message=' . urlencode($message)
             . '&description=' . $description);
     } else {
-        $newId = getNewId(NEXT_TASK_ID_FILE);
+        $newId = "";
         $tasks = getTasks();
         foreach ($tasks as $task) {
             if ($id === $task[0]) {
                 deleteTask($id);
                 $newId = $id;
             }
+        }
+        if ($newId === "") {
+            $newId = getNewId(NEXT_TASK_ID_FILE);
         }
         $encodedTask = $newId . ',' . urlencode($description) . ',' . $estimate . "\n";
         writeData(TASKS_FILE, $encodedTask);
@@ -91,7 +99,7 @@ function getEmployees() {
         while (($line = fgets($readData)) !== false) {
             $exploded = explode(',', $line);
 
-            $employeeList[] = [$exploded[0] ?? '',
+            $employeeList[] = [isset($exploded[0]) ? $exploded[0] : '',
                 isset($exploded[1]) ? urldecode($exploded[1]) : '',
                 isset($exploded[2]) ? urldecode($exploded[2]) : ''];
         }
@@ -145,12 +153,10 @@ function deleteTask(string $id) {
     file_put_contents(TASKS_FILE, implode('', $data));
 }
 
-function writeData(string $file, string $encodedName) {
+function writeData(string $file, string $encodedData): void {
     $data = fopen($file, 'a');
-    fwrite($data, $encodedName);
+    fwrite($data, $encodedData);
     fclose($data);
-
-    return $data;
 }
 
 function getNewId(string $file): string {

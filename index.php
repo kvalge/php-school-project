@@ -10,10 +10,7 @@
 
 <?php include 'menu.html' ?>
 
-<div class="container"></div>
-
 <div class="footer">
-    <hr>
     <?php include 'footer.html' ?>
 </div>
 
