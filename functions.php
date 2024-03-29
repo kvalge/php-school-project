@@ -23,12 +23,12 @@ if (isset($_POST['submitButton'])) {
 if ($inserted_data === 'employee') {
     if (strlen($firstName) < 1 || strlen($firstName) > 21) {
         $message = 'Length of the first name should be 1 - 21!';
-        header('Location: employee-form.php?message=' . urlencode($message)
-            . '&first_name=' . $firstName . '&last_name=' . $lastName);
+        include 'employee-form.php';
+        exit();
     } elseif (strlen($lastName) < 2 || strlen($lastName) > 22) {
         $message = 'Length of the last name should be 2 - 22!';
-        header('Location: employee-form.php?message=' . urlencode($message)
-            . '&first_name=' . $firstName . '&last_name=' . $lastName);
+        include 'employee-form.php';
+        exit();
     } else {
         $newId = "";
         $employees = getEmployees();
@@ -54,8 +54,8 @@ if ($inserted_data === 'employee') {
     $description = trim($description);
     if (strlen($description) < 5 || strlen($description) > 40) {
         $message = 'Length of the description should be 5 - 40!';
-        header('Location: task-form.php?message=' . urlencode($message)
-            . '&description=' . $description);
+        include 'task-form.php';
+        exit();
     } else {
         $newId = "";
         $tasks = getTasks();
@@ -78,6 +78,7 @@ if ($inserted_data === 'employee') {
 
 if (isset($_POST['deleteButton'])) {
     if ($_POST['employeeId']) {
+        error_log('post func: ' . $_POST['employeeId']);
         deleteEmployee($_POST['employeeId']);
 
         $message = 'Employee is Deleted!';
@@ -91,7 +92,26 @@ if (isset($_POST['deleteButton'])) {
     }
 }
 
-function getEmployees() {
+function getEmployeeById($id): array {
+    $employee = [];
+
+    $readData = fopen(EMPLOYEES_FILE, 'r');
+
+    if ($readData) {
+        while (($line = fgets($readData)) !== false) {
+            $exploded = explode(',', $line);
+            if ($exploded[0] == $id) {
+                $employee[] = $exploded[0] ?? '';
+                $employee[] = isset($exploded[1]) ? urldecode($exploded[1]) : '';
+                $employee[] = isset($exploded[2]) ? urldecode($exploded[2]) : '';
+            }
+        }
+        fclose($readData);
+    }
+    return $employee;
+}
+
+function getEmployees(): array|string {
     $employeeList = [];
     $readData = fopen(EMPLOYEES_FILE, 'r');
 
@@ -110,7 +130,7 @@ function getEmployees() {
     return '';
 }
 
-function getTasks() {
+function getTasks(): array|string {
     $taskList = [];
     $readData = fopen(TASKS_FILE, 'r');
 
@@ -129,19 +149,22 @@ function getTasks() {
     return '';
 }
 
-function deleteEmployee(string $id) {
+function deleteEmployee(string $id): void {
     $employees = getEmployees();
     $data = [];
+    error_log('del id: ' . $id);
     foreach ($employees as $employee) {
         if ($employee[0] !== $id) {
             $encodedName = $employee[0] . ',' . urlencode($employee[1]) . ',' . urlencode($employee[2]) . "\n";
             $data[] = $encodedName;
+            error_log('del func' . $id);
+            error_log('del func' . $encodedName);
         }
     }
     file_put_contents(EMPLOYEES_FILE, implode('', $data));
 }
 
-function deleteTask(string $id) {
+function deleteTask(string $id): void {
     $tasks = getTasks();
     $data = [];
     foreach ($tasks as $task) {

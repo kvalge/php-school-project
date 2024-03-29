@@ -19,6 +19,7 @@ $message = $_GET['message'] ?? null;
 ?>
 
 <div class="container">
+
     <?php if ($message): ?>
         <div class="message-success" id="message-block"><?= $message ?></div>
     <?php endif; ?>
@@ -27,11 +28,11 @@ $message = $_GET['message'] ?? null;
     <?php foreach (getEmployees() as $key => $employee) : ?>
         <div class="list-container">
             <div>
-                <div data-employee-id="<?php $employee[0] ?>">
-                    <?php print $employee[1] . ' ' . $employee[2]; ?>
+                <div>
+                    <span data-employee-id="<?php echo $employee[0] ?>"><?php print $employee[1] . ' ' . $employee[2]; ?></span>
                 </div>
                 <div class="edit">
-                    <a id="employee-edit-link-<?php $employee[0] ?>"
+                    <a id="employee-edit-link-<?php echo $employee[0] ?>"
                        href="employee-form.php?id=<?php print $employee[0]; ?>">Edit</a>
                 </div>
             </div>

@@ -14,29 +14,20 @@ include 'menu.html';
 
 require_once 'functions.php';
 
-?>
-
-<?php
-
-$message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
-$firstName = isset($_GET['first_name']) ? $_GET['first_name'] : null;
-$lastName = isset($_GET['last_name']) ? $_GET['last_name'] : null;
+$firstName = "";
+$lastName = "";
 
 if ($id) {
-    foreach (getEmployees() as $key => $employee) {
-        if ($employee[0] == $id) {
-            $firstName = $employee[1];
-            $lastName = $employee[2];
-        }
-    }
+    $firstName = getEmployeeById($id)[1];
+    $lastName = getEmployeeById($id)[2];
 }
 
 ?>
 
 <div class="container">
 
-    <?php if ($message): ?>
+    <?php if (isset($message)): ?>
         <div class="message-error" id="error-block"><?= $message ?></div>
     <?php endif; ?>
 
@@ -47,13 +38,13 @@ if ($id) {
             <div>
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"
-                       value="<?php print $firstName; ?>">
+                       value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : $firstName; ?>">
             </div>
             <br>
             <div>
                 <label for="lastName">Last name:</label>
                 <input type="text" name="lastName" id="lastName" placeholder="2-22 characters"
-                       value="<?php print $lastName; ?>">
+                       value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : $lastName; ?>">
             </div>
             <br>
             <div>
@@ -62,7 +53,6 @@ if ($id) {
                 No file chosen
             </div>
             <br>
-
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <button type="submit" name="submitButton" value="employee">Save</button>
         </form>

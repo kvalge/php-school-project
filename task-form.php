@@ -8,16 +8,15 @@
 
 <body id="task-form-page">
 
-<?php include 'menu.html' ?>
-
 <?php
+
+include 'menu.html';
 
 require_once 'functions.php';
 
-$message = $_GET['message'] ?? null;
 $id = $_GET['id'] ?? null;
-$description = isset($_GET['description']) ? urldecode($_GET['description']) : null;
-$estimate = $_GET['estimate'] ?? null;
+$description = "";
+$estimate = "";
 
 if ($id) {
     foreach (getTasks() as $key => $task) {
@@ -31,18 +30,20 @@ if ($id) {
 ?>
 
 <div class="container">
-    <?php if ($message): ?>
+
+    <?php if (isset($message)): ?>
         <div class="message-error" id="error-block"><?= $message ?></div>
     <?php endif; ?>
 
     <div class="title">Add Task</div>
     <div class="form-container">
+
         <form method="POST" action="functions.php">
             <br>
             <div class="textarea">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" rows="3"
-                          cols="50"><?php if ($description): ?><?php echo $description; ?><?php endif; ?></textarea>
+                          cols="50"><?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : $description; ?></textarea>
             </div>
             <br>
             <div>
@@ -51,7 +52,7 @@ if ($id) {
                     <label>
                         <input type="radio"
                                name="estimate"
-                            <?= strval($est) === trim(strval($estimate)) ? 'checked' : ''; ?>
+                            <?= strval($est) === (isset($_POST['estimate']) ? $_POST['estimate'] : $estimate) ? 'checked' : ''; ?>
                                value="<?= $est ?>"/>
                         <?= strval($est) ?>
                     </label>
@@ -59,15 +60,18 @@ if ($id) {
                 <?php endforeach; ?> </div>
             <br>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" name="submitted" value="true">
             <button type="submit" name="submitButton" value="task">Save</button>
             <br>
         </form>
+
         <form method="POST" action="functions.php">
             <?php if ($id): ?>
                 <input type="hidden" name="taskId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
         </form>
+
     </div>
 </div>
 
