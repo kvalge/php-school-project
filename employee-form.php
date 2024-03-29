@@ -38,30 +38,27 @@ if ($id) {
             <div>
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"
-                       value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : $firstName; ?>">
+                       value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : trim($firstName); ?>">
             </div>
             <br>
             <div>
                 <label for="lastName">Last name:</label>
                 <input type="text" name="lastName" id="lastName" placeholder="2-22 characters"
-                       value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : $lastName; ?>">
-            </div>
-            <br>
-            <div>
-                <label for="picture">Picture:</label>
-                <button id="picture">Choose File</button>
-                No file chosen
+                       value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : trim($lastName); ?>">
             </div>
             <br>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" name="submitted" value="true">
             <button type="submit" name="submitButton" value="employee">Save</button>
         </form>
+
         <form method="post" action="functions.php">
             <?php if ($id): ?>
                 <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
                 <button type="submit" name="deleteButton">Delete</button>
             <?php endif; ?>
         </form>
+
     </div>
 
 </div>

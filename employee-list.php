@@ -33,10 +33,11 @@ $message = $_GET['message'] ?? null;
                 </div>
                 <div class="edit">
                     <a id="employee-edit-link-<?php echo $employee[0] ?>"
-                       href="employee-form.php?id=<?php print $employee[0]; ?>">Edit</a>
+                       href="employee-form.php?id=<?php echo $employee[0]; ?>">Edit</a>
                 </div>
             </div>
         </div>
+
     <?php endforeach; ?>
 </div>
 
