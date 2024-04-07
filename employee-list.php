@@ -27,10 +27,15 @@ $message = $_GET['message'] ?? null;
     <div class="title">Employees</div>
     <?php foreach (getEmployees() as $key => $employee) : ?>
         <div class="list-container">
-            <div>
+            <div class="info-text">
                 <div>
                     <span data-employee-id="<?php echo $employee[0] ?>"><?php print $employee[1] . ' ' . $employee[2]; ?></span>
                 </div>
+                <div>
+                    <?php echo $employee[3] ?>
+                </div>
+            </div>
+            <div class="info-update">
                 <div class="edit">
                     <a id="employee-edit-link-<?php echo $employee[0] ?>"
                        href="employee-form.php?id=<?php echo $employee[0]; ?>">Edit</a>

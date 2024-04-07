@@ -12,8 +12,13 @@ const NEXT_TASK_ID_FILE = 'next-task-id-txt';
 $id = $_POST['id'] ?? null;
 $firstName = $_POST['firstName'] ?? null;
 $lastName = $_POST['lastName'] ?? null;
+$position = $_POST['position'] ?? null;
 $description = $_POST['description'] ?? null;
 $estimate = $_POST['estimate'] ?? null;
+$employeeId = $_POST['employeeId'] ?? null;
+$completed = $_POST['completed'] ?? null;
+
+$taskStateList = ['open', 'pending', 'closed'];
 
 $inserted_data = '';
 if (isset($_POST['submitButton'])) {
@@ -43,7 +48,7 @@ if ($inserted_data === 'employee') {
             $newId = getNewId(NEXT_EMPLOYEE_ID_FILE);
         }
 
-        $encodedName = $newId . ',' . urlencode($firstName) . ',' . urlencode($lastName) . "\n";
+        $encodedName = $newId . ',' . urlencode($firstName) . ',' . urlencode($lastName) . ',' . urlencode($position) . "\n";
         writeData(EMPLOYEES_FILE, $encodedName);
 
         $message = 'Employee is added!';
@@ -68,7 +73,22 @@ if ($inserted_data === 'employee') {
         if ($newId === "") {
             $newId = getNewId(NEXT_TASK_ID_FILE);
         }
-        $encodedTask = $newId . ',' . urlencode($description) . ',' . $estimate . "\n";
+
+        $taskState = "";
+        if (!$completed) {
+            if (!$employeeId) {
+                $taskState = $taskStateList[0];
+                error_log('0:' . $taskStateList[0]);
+            } else {
+                $taskState = $taskStateList[1];
+                error_log('1:' . $taskStateList[1]);
+            }
+        } else {
+            $taskState = $taskStateList[2];
+            error_log('2:' . $taskStateList[2]);
+        }
+
+        $encodedTask = $newId . ',' . urlencode($description) . ',' . $estimate . ',' . $employeeId . ',' . $taskState . "\n";
         writeData(TASKS_FILE, $encodedTask);
 
         $message = 'Task is added!';
@@ -104,6 +124,7 @@ function getEmployeeById($id): array {
                 $employee[] = $exploded[0] ?? '';
                 $employee[] = isset($exploded[1]) ? urldecode($exploded[1]) : '';
                 $employee[] = isset($exploded[2]) ? urldecode($exploded[2]) : '';
+                $employee[] = isset($exploded[3]) ? urldecode($exploded[3]) : '';
             }
         }
         fclose($readData);
@@ -121,7 +142,8 @@ function getEmployees(): array|string {
 
             $employeeList[] = [isset($exploded[0]) ? $exploded[0] : '',
                 isset($exploded[1]) ? urldecode($exploded[1]) : '',
-                isset($exploded[2]) ? urldecode($exploded[2]) : ''];
+                isset($exploded[2]) ? urldecode($exploded[2]) : '',
+                isset($exploded[3]) ? urldecode($exploded[3]) : ''];
         }
         fclose($readData);
 
@@ -140,7 +162,9 @@ function getTasks(): array|string {
 
             $taskList[] = [$exploded[0] ?? '',
                 isset($exploded[1]) ? urldecode($exploded[1]) : '',
-                isset($exploded[2]) ? urldecode($exploded[2]) : ''];
+                isset($exploded[2]) ? urldecode($exploded[2]) : '',
+                $exploded[3] ?? '',
+                $exploded[4] ?? ''];
         }
         fclose($readData);
 
@@ -152,13 +176,10 @@ function getTasks(): array|string {
 function deleteEmployee(string $id): void {
     $employees = getEmployees();
     $data = [];
-    error_log('del id: ' . $id);
     foreach ($employees as $employee) {
         if ($employee[0] !== $id) {
-            $encodedName = $employee[0] . ',' . urlencode($employee[1]) . ',' . urlencode($employee[2]) . "\n";
+            $encodedName = $employee[0] . ',' . urlencode($employee[1]) . ',' . urlencode($employee[2]) . ',' . urlencode($employee[3]) . "\n";
             $data[] = $encodedName;
-            error_log('del func' . $id);
-            error_log('del func' . $encodedName);
         }
     }
     file_put_contents(EMPLOYEES_FILE, implode('', $data));
@@ -169,7 +190,7 @@ function deleteTask(string $id): void {
     $data = [];
     foreach ($tasks as $task) {
         if ($task[0] !== $id) {
-            $encodedTask = $task[0] . ',' . urlencode($task[1]) . ',' . $task[2];
+            $encodedTask = $task[0] . ',' . urlencode($task[1]) . ',' . $task[2] . ',' . $task[3] . ',' . $task[4];
             $data[] = $encodedTask;
         }
     }

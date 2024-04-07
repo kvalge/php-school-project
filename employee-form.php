@@ -17,10 +17,13 @@ require_once 'functions.php';
 $id = $_GET['id'] ?? null;
 $firstName = "";
 $lastName = "";
+$position = "";
+$positionList = ["Manager", "Designer", "Developer"];
 
 if ($id) {
     $firstName = getEmployeeById($id)[1];
     $lastName = getEmployeeById($id)[2];
+    $position = getEmployeeById($id)[3];
 }
 
 ?>
@@ -35,28 +38,42 @@ if ($id) {
 
     <div class="form-container">
         <form method="post" action="functions.php">
-            <div>
+            <div class="form_group">
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"
                        value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : trim($firstName); ?>">
             </div>
             <br>
-            <div>
+            <div class="form_group">
                 <label for="lastName">Last name:</label>
                 <input type="text" name="lastName" id="lastName" placeholder="2-22 characters"
                        value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : trim($lastName); ?>">
             </div>
             <br>
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="hidden" name="submitted" value="true">
-            <button type="submit" name="submitButton" value="employee">Save</button>
-        </form>
+            <div class="form_group">
+                <label for="position">Position: </label>
+                <select name="position">
+                    <option value=""
+                            label="<?php echo $position; ?>"></option>
+                    <?php foreach ($positionList as $pos) : ?>
+                        <?php if ($pos != trim($position)): ?>
+                            <option value="<?php echo $pos ?>"><?php echo $pos; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <br>
 
-        <form method="post" action="functions.php">
-            <?php if ($id): ?>
-                <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
-                <button type="submit" name="deleteButton">Delete</button>
-            <?php endif; ?>
+            <div class="<?php echo ($id) ? 'two-button' : 'one-button'; ?>">
+                <?php if ($id): ?>
+                    <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
+                    <button type="submit" name="deleteButton">Delete</button>
+                <?php endif; ?>
+
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="hidden" name="submitted" value="true">
+                <button type="submit" name="submitButton" value="employee">Save</button>
+            </div>
         </form>
 
     </div>

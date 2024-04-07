@@ -8,7 +8,61 @@
 
 <body id="dashboard-page">
 
-<?php include 'menu.html' ?>
+<?php include 'menu.html';
+
+require_once 'functions.php';
+
+?>
+
+<div class="index-container">
+
+<div class="employee-container">
+
+    <div class="title">Employees</div>
+    <?php foreach (getEmployees() as $key => $employee) : ?>
+        <div class="list-container">
+            <div class="info-text">
+                <div>
+                    <span data-employee-id="<?php echo $employee[0] ?>"><?php print $employee[1] . ' ' . $employee[2]; ?></span>
+                </div>
+                <div>
+                    <?php echo $employee[3] ?>
+                </div>
+                <br>
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+</div>
+
+<div class="task-container">
+
+    <div class="title">Tasks</div>
+
+    <?php foreach (getTasks() as $key => $task) : ?>
+        <div class="list-container">
+            <div class="info-text">
+                <div>
+                    <span data-task-id="<?php echo $task[0] ?>"><?php print $task[1]; ?></span>
+                </div>
+                <br>
+                <div class="estimate">
+                    <?php
+                    $estimate = intval($task[2]);
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $estimate) {
+                            echo '<div class="filled"></div>';
+                        } else {
+                            echo '<div class="empty"></div>';
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+</div>
 
 <div class="footer">
     <?php include 'footer.html' ?>

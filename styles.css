@@ -1,9 +1,11 @@
 body {
-    width: 60%;
+    width: 55%;
     font-family: Calibri sans-serif;
     font-size: 17px;
     margin-left: auto;
     margin-right: auto;
+    color: #1e6d94;
+    background-color: #f6f8f8;
 }
 
 nav {
@@ -15,20 +17,57 @@ nav > a {
     color: #1e6d94;
 }
 
+.index-container {
+    display: table; /* Make the container element behave like a table */
+    width: 100%;
+    border-spacing: 5px; /* Lisa 5px vahe konteinerite vahel */
+    border-collapse: separate;
+    margin-top: 20px;
+}
+
+.employee-container, .task-container {
+    display: table-cell;
+    border: #91c8e4 solid 1px;
+}
+
+.employee-container {
+    width: 40%;
+}
+
+.task-container {
+    width: 60%;
+}
+
 .container {
-    border: 1px solid #91c8e4;
+    border: #91c8e4 solid 1px;
     margin-top: 20px;
 }
 
 .list-container {
-    border: 1px solid #91c8e4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: #91c8e4 solid 1px;
     margin: 15px 10px;
     padding: 10px;
 }
 
+.info-text {
+    width: 90%;
+}
+
+.info-update {
+    text-align: right;
+    margin-right: 5px;
+}
+
+.info-update .edit a {
+    color: #1e6d94;
+}
+
 .form-container {
-    width: 50%;
-    margin-top: 20px;
+    width: 90%;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -41,43 +80,106 @@ nav > a {
     padding-left: 5px;
 }
 
-.textarea {
-    display: flex;
-    align-items: center;
-}
-
-input {
-    margin: 5px;
+.form-group {
+    margin-bottom: 10px;
 }
 
 label {
-    padding-right: 10px;
+    display: inline-block;
+    width: 250px;
+    text-align: right;
+    margin-right: 5px;
 }
 
-.edit a {
-    float: right;
-    color: #1e6d94;
+#firstName, #lastName {
+    width: 244px;
+    height: 25px;
+    border: #1e6d94 solid 1px;
 }
 
-.edit {
-    display: flex;
-    justify-content: flex-end;
+select {
+    width: 250px;
+    height: 25px;
+}
+
+select, textarea {
+    border: #1e6d94 solid 1px;
+    border-radius: 2px;
+}
+
+input[type="radio"] {
+    position: relative;
+}
+
+input[type="radio"]::before {
+    content: '';
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border: #1e6d94 solid 1px;
+    border-radius: 50%;
+
 }
 
 button {
     background-color: #1e6d94;
     border: none;
     color: white;
-    border-radius: 2px;
+    border-radius: 3px;
     height: 30px;
     width: 90px;
     cursor: pointer;
-    margin-top: 10px;
     margin-bottom: 10px;
 }
 
+.two-button {
+    margin-top: 25px;
+    margin-left: 330px;
+}
+
+.one-button {
+    margin-top: 25px;
+    margin-left: 420px;
+}
+
 button[name="deleteButton"] {
-    background-color: #fa42a4;
+    background-color: #dc0376;
+}
+
+button.open, button.pending, button.closed {
+    height: 25px;
+    width: 70px;
+    margin-right: 0;
+    margin-top: 10px;
+}
+
+button.open {
+    background-color: #91c8e4;
+}
+
+button.pending {
+    background-color: #dc0376;
+}
+
+button.closed {
+    background-color: #2bc785;
+}
+
+.filled, .empty {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    margin-right: 5px;
+    border: #1e6d94 solid 1px;
+    border-radius: 2px;
+}
+
+.filled {
+    background-color: #91c8e4;
+}
+
+.empty {
+    background-color: white;
 }
 
 .message-success {
@@ -90,7 +192,7 @@ button[name="deleteButton"] {
 
 .message-error {
     color: #640219;
-    background-color: #fa42a4;
+    background-color: #dc0376;
     height: 25px;
     padding-top: 5px;
     padding-left: 5px;
@@ -100,4 +202,3 @@ button[name="deleteButton"] {
     margin-top: 20px;
     color: #1e6d94;
 }
-

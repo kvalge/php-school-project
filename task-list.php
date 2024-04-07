@@ -26,16 +26,32 @@ $message = $_GET['message'] ?? null;
 
     <?php foreach (getTasks() as $key => $task) : ?>
         <div class="list-container">
-            <div>
+            <div class="info-text">
                 <div>
                     <span data-task-id="<?php echo $task[0] ?>"><?php print $task[1]; ?></span>
                 </div>
                 <br>
-                Estimate: <?php echo $task[2]; ?><br>
+                <div class="estimate">
+                    <?php
+                    $estimate = intval($task[2]);
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $estimate) {
+                            echo '<div class="filled"></div>';
+                        } else {
+                            echo '<div class="empty"></div>';
+                        }
+                    }
+                    ?>
+                </div>
             </div>
-            <div class="edit">
-                <a id="task-edit-link-<?php echo $task[0] ?>"
-                   href="task-form.php?id=<?php echo $task[0]; ?>">Edit</a>
+            <div class="info-update">
+                <div class="edit">
+                    <a id="task-edit-link-<?php echo $task[0] ?>"
+                       href="task-form.php?id=<?php echo $task[0]; ?>">Edit</a>
+                </div>
+                <div class="task-state">
+                    <button class="state <?php echo $task[4]; ?>"><?php echo $task[4]; ?></button>
+                </div>
             </div>
         </div>
     <?php endforeach; ?>
