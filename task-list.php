@@ -10,7 +10,7 @@
 
 <?php include 'menu.html';
 
-require_once 'functions.php';
+require_once 'controller.php';
 
 $message = $_GET['message'] ?? null;
 
@@ -24,16 +24,17 @@ $message = $_GET['message'] ?? null;
 
     <div class="title">Tasks</div>
 
-    <?php foreach (getTasks() as $key => $task) : ?>
+    <?php foreach (getTasks() as $key => $taskRow) : ?>
+        <?php $task = explode(',', $taskRow)?>
         <div class="list-container">
             <div class="info-text">
                 <div>
-                    <span data-task-id="<?php echo $task[0] ?>"><?php print $task[1]; ?></span>
+                    <span data-task-id="<?php echo $task[0] ?>"><?php print $task[2]; ?></span>
                 </div>
                 <br>
                 <div class="estimate">
                     <?php
-                    $estimate = intval($task[2]);
+                    $estimate = intval($task[3]);
                     for ($i = 1; $i <= 5; $i++) {
                         if ($i <= $estimate) {
                             echo '<div class="filled"></div>';
@@ -50,7 +51,7 @@ $message = $_GET['message'] ?? null;
                        href="task-form.php?id=<?php echo $task[0]; ?>">Edit</a>
                 </div>
                 <div class="task-state">
-                    <button class="state <?php echo $task[4]; ?>"><?php echo $task[4]; ?></button>
+                    <button class="state <?php echo $task[4]; ?>"><span id="task-state-<?php echo $task[0]; ?>"><?php echo $task[4]; ?></span></button>
                 </div>
             </div>
         </div>

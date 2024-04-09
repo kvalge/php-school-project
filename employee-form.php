@@ -12,7 +12,7 @@
 
 include 'menu.html';
 
-require_once 'functions.php';
+require_once 'controller.php';
 
 $id = $_GET['id'] ?? null;
 $firstName = "";
@@ -21,9 +21,10 @@ $position = "";
 $positionList = ["Manager", "Designer", "Developer"];
 
 if ($id) {
-    $firstName = getEmployeeById($id)[1];
-    $lastName = getEmployeeById($id)[2];
-    $position = getEmployeeById($id)[3];
+    $explode = explode(',', getEmployeeById($id));
+    $firstName = $explode[1];
+    $lastName = $explode[2];
+    $position = $explode[3];
 }
 
 ?>
@@ -37,7 +38,7 @@ if ($id) {
     <div class="title">Add Employee</div>
 
     <div class="form-container">
-        <form method="post" action="functions.php">
+        <form method="post" action="controller.php">
             <div class="form_group">
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"

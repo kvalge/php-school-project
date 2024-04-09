@@ -18,9 +18,9 @@ nav > a {
 }
 
 .index-container {
-    display: table; /* Make the container element behave like a table */
+    display: table;
     width: 100%;
-    border-spacing: 5px; /* Lisa 5px vahe konteinerite vahel */
+    border-spacing: 5px;
     border-collapse: separate;
     margin-top: 20px;
 }
@@ -146,11 +146,16 @@ button[name="deleteButton"] {
     background-color: #dc0376;
 }
 
+.task-state {
+    display: inline-block;
+}
+
 button.open, button.pending, button.closed {
     height: 25px;
     width: 70px;
     margin-right: 0;
     margin-top: 10px;
+    cursor: none;
 }
 
 button.open {

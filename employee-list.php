@@ -12,7 +12,7 @@
 
 include 'menu.html';
 
-require_once 'functions.php';
+require_once 'controller.php';
 
 $message = $_GET['message'] ?? null;
 
@@ -25,7 +25,8 @@ $message = $_GET['message'] ?? null;
     <?php endif; ?>
 
     <div class="title">Employees</div>
-    <?php foreach (getEmployees() as $key => $employee) : ?>
+    <?php foreach (getEmployees() as $key => $emp) : ?>
+    <?php $employee = explode(',', $emp)?>
         <div class="list-container">
             <div class="info-text">
                 <div>
