@@ -68,7 +68,7 @@ if ($id) {
             <div class="<?php echo ($id) ? 'two-button' : 'one-button'; ?>">
                 <?php if ($id): ?>
                     <input type="hidden" name="employeeId" value="<?php echo $id; ?>">
-                    <button type="submit" name="deleteButton">Delete</button>
+                    <button type="submit" name="deleteButton" value="deleteEmployee">Delete</button>
                 <?php endif; ?>
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>">

@@ -20,18 +20,12 @@ $estimate = "";
 $employee = "";
 
 if ($id) {
-    foreach (getTasks() as $key => $taskRow) {
-        $task = explode(',', $taskRow);
-        if ($task[0] === $id) {
-            $description = $task[2];
-            $estimate = $task[3];
-            foreach (getAllEmployees() as $key => $employeeRow) {
-                $emp = explode(',', $employeeRow);
-                if ($task[1] === $emp[0]) {
-                    $employee = $emp;
-                }
-            }
-        }
+    $task = explode(',', getTaskById($id));
+    $description = $task[2];
+    $estimate = $task[3];
+
+    if ($task[1]) {
+        $employee = explode(',', getEmployeeById($task[1]));
     }
 }
 
@@ -60,7 +54,7 @@ if ($id) {
                            name="estimate"
                         <?= strval($est) === ($_POST['estimate'] ?? $estimate) ? 'checked' : ''; ?>
                            value="<?= $est ?>"/>
-                    <?= strval($est) ?>
+                    <?= $est ?>
                 <?php endforeach; ?> </div>
 
             <div class="form-group">
@@ -89,7 +83,7 @@ if ($id) {
             <div class="<?php echo ($id) ? 'two-button' : 'one-button'; ?>">
                 <?php if ($id): ?>
                     <input type="hidden" name="taskId" value="<?php echo $id; ?>">
-                    <button type="submit" name="deleteButton">Delete</button>
+                    <button type="submit" name="deleteButton" value="deleteTask">Delete</button>
                 <?php endif; ?>
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>">

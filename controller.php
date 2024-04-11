@@ -80,13 +80,14 @@ if ($inserted_data === 'employee') {
 }
 
 if (isset($_POST['deleteButton'])) {
-    if ($_POST['employeeId']) {
+    $buttonValue = $_POST['deleteButton'];
+    if ($buttonValue === 'deleteEmployee') {
         deleteEmployee(intval($_POST['employeeId']));
 
         $message = 'Employee is Deleted!';
         header('Location: employee-list.php?message=' . urlencode($message));
 
-    } elseif ($_POST['taskId']) {
+    } elseif ($buttonValue === 'deleteTask') {
         deleteTask(intval($_POST['taskId']));
 
         $message = 'Task is Deleted!';
@@ -98,6 +99,10 @@ function getEmployeeById($id): string {
     return getEmployee(intval($id));
 }
 
+function getTaskById($id): string {
+    return getTask(intval($id));
+}
+
 function getEmployees(): array|string {
     return getAllEmployees();
 }
@@ -107,7 +112,7 @@ function getTasks(): false|array {
 }
 
 function findNumberOfTasks(int $id) {
-    $taskCount = findEmployeeTasks();
+    $taskCount = countEmployeeTasks();
 
     foreach ($taskCount as $key => $value) {
         if ($key === $id) {

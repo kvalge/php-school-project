@@ -91,11 +91,32 @@ function getAllTasks(): false|array {
     return $taskList;
 }
 
-function deleteEmployee(int $id): void {
-    $taskIdList = findTaskIdByEmployeeId($id);
+function getTask(int $id): string {
+    $conn = getConnection();
 
-    foreach ($taskIdList as $taskId) {
-        updateTaskToNotAssigned($taskId);
+    $stmt = $conn->prepare('SELECT * FROM task WHERE id = :id');
+
+    $stmt->bindValue(':id', $id);
+
+    $stmt->execute();
+
+    $task = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $id = $task['id'];
+    $employeeId = $task['employee_id'];
+    $description = $task['description'];
+    $estimate = $task['estimate'];
+    $state = $task['state'];
+
+    return $id . ',' . $employeeId . ',' . $description . ',' . $estimate . ',' . $state;
+}
+
+function deleteEmployee(int $id): void {
+    $tasks = findTaskByEmployeeId($id);
+
+    foreach ($tasks as $task) {
+        $explode = explode(',', $task);
+        updateTask($explode[0], NULL, $explode[2], $explode[3], 'open');
     }
 
     $conn = getConnection();
@@ -117,7 +138,7 @@ function deleteTask(int $id): void {
     $stmt->execute();
 }
 
-function findEmployeeTasks(): array {
+function countEmployeeTasks(): array {
     $conn = getConnection();
 
     $stmt = $conn->prepare('SELECT employee.id as empId, task.employee_id as taskEmpId  FROM employee LEFT JOIN task ON employee.id = task.employee_id');
@@ -147,7 +168,7 @@ function findEmployeeTasks(): array {
     return $taskCount;
 }
 
-function findTaskIdByEmployeeId(int $id): array {
+function findTaskByEmployeeId(int $id): array {
     $conn = getConnection();
 
     $stmt = $conn->prepare('SELECT * FROM task WHERE employee_id = :id');
@@ -156,23 +177,19 @@ function findTaskIdByEmployeeId(int $id): array {
 
     $stmt->execute();
 
-    $taskIdList = [];
+    $taskList = [];
 
     foreach ($stmt as $row) {
-        $taskIdList[] = $row['id'];
+        $id = $row['id'];
+        $employeeId = $row['employee_id'];
+        $description = $row['description'];
+        $estimate = $row['estimate'];
+        $state = $row['state'];
+        $task = $id . ',' . $employeeId . ',' . $description . ',' . $estimate . ',' . $state;
+        $taskList[] = $task;
     }
 
-    return $taskIdList;
-}
-
-function updateTaskToNotAssigned(int $id): void {
-    $conn = getConnection();
-
-    $stmt = $conn->prepare('UPDATE task SET employee_id = NULL, state = "open" WHERE id = :id');
-
-    $stmt->bindValue(':id', $id);
-
-    $stmt->execute();
+    return $taskList;
 }
 
 function updateEmployee(int $id, string $firstName, string $lastName, string $position): void {
@@ -192,7 +209,7 @@ function updateEmployee(int $id, string $firstName, string $lastName, string $po
     $stmt->execute();
 }
 
-function updateTask(int $id, int $employeeId, string $description, int $estimate, string $taskState): void {
+function updateTask(int $id, $employeeId, string $description, int $estimate, string $taskState): void {
     $conn = getConnection();
 
     $stmt = $conn->prepare('UPDATE task SET
