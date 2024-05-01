@@ -49,7 +49,7 @@ function validate($temp): array {
     if (is_numeric($temp)) {
         return [];
     } else {
-        return ['Input must be numeric'];
+        return ['Input must be a number'];
     }
 }
 
