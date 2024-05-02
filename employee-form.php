@@ -21,7 +21,7 @@ $position = "";
 $positionList = ["Manager", "Designer", "Developer"];
 
 if ($id) {
-    $employee = getEmployee($id);
+    $employee = getEmployeeById($id);
 
     $firstName = $employee->firstName;
     $lastName = $employee->lastName;

@@ -5,6 +5,8 @@ ini_set('display_errors', '1');
 
 require_once 'functions.php';
 require_once 'validation.php';
+require_once 'Employee.php';
+require_once 'Task.php';
 
 $command = null;
 
@@ -18,8 +20,11 @@ $employeeId = $_POST['employeeId'] ?? null;
 $completed = $_POST['isCompleted'] ?? null;
 
 $inserted_data = '';
+$buttonValue = null;
 if (isset($_POST['submitButton'])) {
     $inserted_data = $_POST['submitButton'];
+} else if (isset($_POST['deleteButton'])) {
+    $buttonValue = $_POST['deleteButton'];
 } else {
     $command = $_GET['command'] ?? 'dashboard';
 }
@@ -52,9 +57,7 @@ if ($inserted_data === 'employee') {
             updateEmployee(intval($id), $firstName, $lastName, $position);
             $message = 'Employee is updated!';
         } else {
-            $newEmployee = createEmployee($firstName, $lastName, $position);
-
-            saveEmployee($newEmployee);
+            addEmployee($firstName, $lastName, $position);
             $message = 'Employee is added!';
         }
 
@@ -74,8 +77,7 @@ if ($inserted_data === 'employee') {
             updateTask(intval($id), intval($employeeId), $description, intval($estimate), $taskState);
             $message = 'Task is updated!';
         } else {
-            $task = createTask(intval($employeeId), $description, intval($estimate), $taskState);
-            saveTask($task);
+            addTask(intval($employeeId), $description, intval($estimate), $taskState);
             $message = 'Task is added!';
         }
 
@@ -84,16 +86,13 @@ if ($inserted_data === 'employee') {
 }
 
 if (isset($_POST['deleteButton'])) {
-    $buttonValue = $_POST['deleteButton'];
     if ($buttonValue === 'deleteEmployee') {
         deleteEmployee(intval($_POST['employeeId']));
-
         $message = 'Employee is Deleted!';
         header('Location: employee-list.php?message=' . urlencode($message));
 
     } elseif ($buttonValue === 'deleteTask') {
         deleteTask(intval($_POST['taskId']));
-
         $message = 'Task is Deleted!';
         header('Location: task-list.php?message=' . urlencode($message));
     }

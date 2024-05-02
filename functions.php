@@ -1,35 +1,76 @@
 <?php
 
-require_once 'db-query.php';
-require_once 'Employee.php';
-require_once 'Task.php';
 
-function createEmployee(string $firstName, string $lastName, string $position): Employee {
-    return new Employee(null, $firstName, $lastName, $position);
+require_once 'Repository.php';
+
+function addEmployee($firstName, $lastName, $position): void {
+    $repository = new Repository();
+
+    $newEmployee = new Employee(null, $firstName, $lastName, $position);
+
+    $repository->saveEmployee($newEmployee);
 }
 
-function createTask($employeeId, $description, $estimate, $state): Task {
-    return new Task(null, $employeeId, $description, $estimate, $state);
+function addTask($employeeId, $description, $estimate, $taskState): void {
+    $repository = new Repository();
+
+    $newTask = new Task(null, $employeeId, $description, $estimate, $taskState);
+
+    $repository->saveTask($newTask);
 }
 
 function getEmployeeById($id): Employee {
-    return getEmployee(intval($id));
+    $repository = new Repository();
+
+    return $repository->getEmployee($id);
 }
 
 function getTaskById($id): Task {
-    return getTask(intval($id));
+    $repository = new Repository();
+
+    return $repository->getTask(intval($id));
 }
 
 function getEmployees(): array|string {
-    return getAllEmployees();
+    $repository = new Repository();
+
+    return $repository->getAllEmployees();
 }
 
 function getTasks(): false|array {
-    return getAllTasks();
+    $repository = new Repository();
+
+    return $repository->getAllTasks();
+}
+
+function updateEmployee($id, $firstName, $lastName, $position): void {
+    $repository = new Repository();
+
+    $repository->updateEmployee($id, $firstName, $lastName, $position);
+}
+
+function updateTask($id, $employeeId, $description, $estimate, $state): void {
+    $repository = new Repository();
+
+    $repository->updateTask($id, $employeeId, $description, $estimate, $state);
+}
+
+function deleteEmployee($id): void {
+    $repository = new Repository();
+
+    $repository->deleteEmployee($id);
+}
+
+function deleteTask($id):void {
+    $repository = new Repository();
+
+    $repository->deleteTask($id);
 }
 
 function findNumberOfTasks(int $id) {
-    $taskCount = countEmployeeTasks();
+    $repository = new Repository();
+
+    $taskCount = $repository->getNumberOfEmployeeTasks();
 
     foreach ($taskCount as $key => $value) {
         if ($key === $id) {
