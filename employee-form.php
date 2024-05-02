@@ -22,6 +22,7 @@ $positionList = ["Manager", "Designer", "Developer"];
 
 if ($id) {
     $employee = getEmployee($id);
+
     $firstName = $employee->firstName;
     $lastName = $employee->lastName;
     $position = $employee->position;
@@ -38,7 +39,7 @@ if ($id) {
     <div class="title">Add Employee</div>
 
     <div class="form-container">
-        <form method="post" action="controller.php">
+        <form method="post" action="index.php">
             <div class="form_group">
                 <label for="firstName">First name:</label>
                 <input type="text" name="firstName" id="firstName" placeholder="1-21 characters"

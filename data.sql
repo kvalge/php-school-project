@@ -6,7 +6,7 @@ CREATE TABLE employee
     id         INTEGER PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
     last_name  VARCHAR(255),
-    position   VARCHAR(255)
+    position   VARCHAR(255) NULL
 );
 
 CREATE TABLE task
@@ -15,5 +15,5 @@ CREATE TABLE task
     employee_id INTEGER NULL,
     description VARCHAR(255),
     estimate    INTEGER,
-    state       VARCHAR(255)
+    state       VARCHAR(255) NULL
 );

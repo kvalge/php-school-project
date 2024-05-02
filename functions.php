@@ -39,3 +39,15 @@ function findNumberOfTasks(int $id) {
     return 0;
 }
 
+function getTaskState(mixed $completed, mixed $employeeId): string {
+    $taskStateList = ['open', 'pending', 'closed'];
+
+    if (!$completed) {
+        if (!$employeeId) {
+            return $taskStateList[0];
+        } else {
+            return $taskStateList[1];
+        }
+    }
+    return $taskStateList[2];
+}

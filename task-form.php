@@ -22,6 +22,7 @@ $employees = getEmployees();
 
 if ($id) {
     $task = getTaskById($id);
+
     $description = $task->description;
     $estimate = $task->estimate;
 
@@ -41,7 +42,7 @@ if ($id) {
     <div class="title">Add Task</div>
     <div class="form-container">
 
-        <form method="POST" action="controller.php">
+        <form method="POST" action="index.php">
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4"
@@ -78,7 +79,6 @@ if ($id) {
                     <input type="checkbox" id="completed" name="isCompleted" value="completed">
                 </div>
             <?php endif; ?>
-
 
             <div class="<?php echo ($id) ? 'two-button' : 'one-button'; ?>">
                 <?php if ($id): ?>

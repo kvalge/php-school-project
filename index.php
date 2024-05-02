@@ -1,85 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+<?php
 
-<body id="dashboard-page">
 
-<?php include 'menu.html';
+ini_set('display_errors', '1');
 
 require_once 'functions.php';
+require_once 'validation.php';
 
-$taskCount = 0;
+$command = null;
 
-$employees = getEmployees();
-$tasks = getTasks();
+$id = $_POST['id'] ?? null;
+$firstName = $_POST['firstName'] ?? null;
+$lastName = $_POST['lastName'] ?? null;
+$position = $_POST['position'] ?? null;
+$description = $_POST['description'] ?? null;
+$estimate = $_POST['estimate'] ?? null;
+$employeeId = $_POST['employeeId'] ?? null;
+$completed = $_POST['isCompleted'] ?? null;
 
-?>
+$inserted_data = '';
+if (isset($_POST['submitButton'])) {
+    $inserted_data = $_POST['submitButton'];
+} else {
+    $command = $_GET['command'] ?? 'dashboard';
+}
 
-<div class="index-container">
+if ($command === 'dashboard') {
+    include 'dashboard.php';
+} else if ($command === 'employee_list') {
+    include 'employee-list.php';
+} else if ($command === 'employee_form') {
+    include 'employee-form.php';
+} else if ($command === 'task_list') {
+    include 'task-list.php';
+} else if ($command === 'task_form') {
+    include 'task-form.php';
+}
 
-    <div class="employee-container">
+if ($inserted_data === 'employee') {
+    if (validateFirstName($firstName)) {
+        $message = validateFirstName($firstName);
+        include 'employee-form.php';
+        exit();
 
-        <div class="title">Employees</div>
-        <?php foreach ($employees as $employee) : ?>
-            <div class="list-container">
-                <div class="info-text">
-                    <div>
-                        <span data-employee-id="<?php echo $employee->id ?>"><?php print $employee->firstName . ' ' . $employee->lastName; ?></span>
-                    </div>
-                    <div>
-                        <?php echo $employee->position ?>
-                    </div>
-                    <br>
-                </div>
-                <div class="info-update">
-                        <span id="employee-task-count-<?php echo $employee->id ?>"><?php echo findNumberOfTasks($employee->id); ?></span>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    } elseif (validateLastName($lastName)) {
+        $message = validateLastName($lastName);
+        include 'employee-form.php';
+        exit();
 
-    <div class="task-container">
+    } else {
+        if ($id) {
+            updateEmployee(intval($id), $firstName, $lastName, $position);
+            $message = 'Employee is updated!';
+        } else {
+            $newEmployee = createEmployee($firstName, $lastName, $position);
 
-        <div class="title">Tasks</div>
+            saveEmployee($newEmployee);
+            $message = 'Employee is added!';
+        }
 
-        <?php foreach ($tasks as $task) : ?>
-            <div class="list-container">
-                <div class="info-text">
-                    <div>
-                        <span data-task-id="<?php echo $task->id ?>"><?php print $task->description; ?></span>
-                    </div>
-                    <br>
-                    <div class="estimate">
-                        <?php
-                        $estimate = intval($task->estimate);
-                        for ($i = 1; $i <= 5; $i++) {
-                            if ($i <= $estimate) {
-                                echo '<div class="filled"></div>';
-                            } else {
-                                echo '<div class="empty"></div>';
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-                <div class="info-update">
-                    <button class="state <?php echo $task->state; ?>"><span
-                                id="task-state-<?php echo $task->id; ?>"><?php echo $task->state; ?></span></button>
-                </div>
+        header('Location: employee-list.php?message=' . urlencode($message));
+    }
 
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
+} elseif ($inserted_data === 'task') {
+    if (validateTaskDescription($description)) {
+        $message = validateTaskDescription($description);
+        include 'task-form.php';
+        exit();
 
-<div class="footer">
-    <?php include 'footer.html' ?>
-</div>
+    } else {
+        $taskState = getTaskState($completed, $employeeId);
 
-</body>
+        if ($id) {
+            updateTask(intval($id), intval($employeeId), $description, intval($estimate), $taskState);
+            $message = 'Task is updated!';
+        } else {
+            $task = createTask(intval($employeeId), $description, intval($estimate), $taskState);
+            saveTask($task);
+            $message = 'Task is added!';
+        }
 
-</html>
+        header('Location: task-list.php?message=' . urlencode($message));
+    }
+}
+
+if (isset($_POST['deleteButton'])) {
+    $buttonValue = $_POST['deleteButton'];
+    if ($buttonValue === 'deleteEmployee') {
+        deleteEmployee(intval($_POST['employeeId']));
+
+        $message = 'Employee is Deleted!';
+        header('Location: employee-list.php?message=' . urlencode($message));
+
+    } elseif ($buttonValue === 'deleteTask') {
+        deleteTask(intval($_POST['taskId']));
+
+        $message = 'Task is Deleted!';
+        header('Location: task-list.php?message=' . urlencode($message));
+    }
+}
