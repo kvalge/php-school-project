@@ -36,7 +36,7 @@ $tasks = getTasks();
                     <br>
                 </div>
                 <div class="info-update">
-                        <span id="employee-task-count-<?php echo $employee->id ?>"><?php echo findNumberOfTasks($employee->id); ?></span>
+                    <span id="employee-task-count-<?php echo $employee->id ?>"><?php echo findNumberOfTasks($employee->id); ?></span>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -68,7 +68,7 @@ $tasks = getTasks();
                 </div>
                 <div class="info-update">
                     <button class="state <?php echo $task->state; ?>"><span
-                                id="task-state-<?php echo $task->id; ?>"><?php echo $task->state; ?></span></button>
+                            id="task-state-<?php echo $task->id; ?>"><?php echo $task->state; ?></span></button>
                 </div>
 
             </div>
@@ -83,3 +83,4 @@ $tasks = getTasks();
 </body>
 
 </html>
+

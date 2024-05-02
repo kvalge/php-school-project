@@ -12,20 +12,21 @@
 
 include 'menu.html';
 
-require_once 'controller.php';
+require_once 'functions.php';
 
 $id = $_GET['id'] ?? null;
 $description = "";
 $estimate = "";
 $employee = "";
+$employees = getEmployees();
 
 if ($id) {
-    $task = explode(',', getTaskById($id));
-    $description = $task[2];
-    $estimate = $task[3];
+    $task = getTaskById($id);
+    $description = $task->description;
+    $estimate = $task->estimate;
 
-    if ($task[1]) {
-        $employee = explode(',', getEmployeeById($task[1]));
+    if ($task->employeeId) {
+        $employee = getEmployeeById($task->employeeId);
     }
 }
 
@@ -60,12 +61,11 @@ if ($id) {
             <div class="form-group">
                 <label>Assigned to:</label>
                 <select name="employeeId">
-                    <option value="<?php echo $employee[0] ?? ""; ?>"
-                    ><?php echo isset($employee[0]) ? $employee[1] . " " . $employee[2] : ""; ?></option>
-                    <?php foreach (getAllEmployees() as $key => $employeeRow) : ?>
-                        <?php $emp = explode(',', $employeeRow) ?>
-                        <?php if ($emp[0] !== $employee[0]): ?>
-                            <option value="<?php echo $emp[0] ?>"><?php print $emp[1] . ' ' . $emp[2]; ?></option>
+                    <option value="<?php echo $employee->id ?? ""; ?>"
+                    ><?php echo isset($employee->id) ? $employee->firstName . " " . $employee->lastName : ""; ?></option>
+                    <?php foreach ($employees as $emp) : ?>
+                        <?php if ($emp->id !== $employee->id): ?>
+                            <option value="<?php echo $emp->id ?>"><?php print $emp->firstName . ' ' . $emp->lastName; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </select>

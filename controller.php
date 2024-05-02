@@ -3,7 +3,7 @@
 
 ini_set('display_errors', '1');
 
-require_once 'db-query.php';
+require_once 'functions.php';
 
 $id = $_POST['id'] ?? null;
 $firstName = $_POST['firstName'] ?? null;
@@ -39,7 +39,9 @@ if ($inserted_data === 'employee') {
             updateEmployee(intval($id), $firstName, $lastName, $position);
             $message = 'Employee is updated!';
         } else {
-            addEmployee($firstName, $lastName, $position);
+            $newEmployee = createEmployee($firstName, $lastName, $position);
+
+            saveEmployee($newEmployee);
             $message = 'Employee is added!';
         }
 
@@ -71,7 +73,8 @@ if ($inserted_data === 'employee') {
             updateTask(intval($id), intval($employeeId), $description, intval($estimate), $taskState);
             $message = 'Task is updated!';
         } else {
-            addTask(intval($employeeId), $description, intval($estimate), $taskState);
+            $task = createTask($employeeId, $description, $estimate, $taskState);
+            saveTask($task);
             $message = 'Task is added!';
         }
 
@@ -93,31 +96,4 @@ if (isset($_POST['deleteButton'])) {
         $message = 'Task is Deleted!';
         header('Location: task-list.php?message=' . urlencode($message));
     }
-}
-
-function getEmployeeById($id): string {
-    return getEmployee(intval($id));
-}
-
-function getTaskById($id): string {
-    return getTask(intval($id));
-}
-
-function getEmployees(): array|string {
-    return getAllEmployees();
-}
-
-function getTasks(): false|array {
-    return getAllTasks();
-}
-
-function findNumberOfTasks(int $id) {
-    $taskCount = countEmployeeTasks();
-
-    foreach ($taskCount as $key => $value) {
-        if ($key === $id) {
-            return $value;
-        }
-    }
-    return 0;
 }

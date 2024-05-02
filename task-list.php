@@ -10,9 +10,11 @@
 
 <?php include 'menu.html';
 
-require_once 'controller.php';
+require_once 'functions.php';
 
 $message = $_GET['message'] ?? null;
+
+$tasks = getTasks();
 
 ?>
 
@@ -24,17 +26,16 @@ $message = $_GET['message'] ?? null;
 
     <div class="title">Tasks</div>
 
-    <?php foreach (getTasks() as $key => $taskRow) : ?>
-        <?php $task = explode(',', $taskRow)?>
+    <?php foreach ($tasks as $task) : ?>
         <div class="list-container">
             <div class="info-text">
                 <div>
-                    <span data-task-id="<?php echo $task[0] ?>"><?php print $task[2]; ?></span>
+                    <span data-task-id="<?php echo $task->id ?>"><?php print $task->description; ?></span>
                 </div>
                 <br>
                 <div class="estimate">
                     <?php
-                    $estimate = intval($task[3]);
+                    $estimate = intval($task->estimate);
                     for ($i = 1; $i <= 5; $i++) {
                         if ($i <= $estimate) {
                             echo '<div class="filled"></div>';
@@ -47,11 +48,12 @@ $message = $_GET['message'] ?? null;
             </div>
             <div class="info-update">
                 <div class="edit">
-                    <a id="task-edit-link-<?php echo $task[0] ?>"
-                       href="task-form.php?id=<?php echo $task[0]; ?>">Edit</a>
+                    <a id="task-edit-link-<?php echo $task->id ?>"
+                       href="task-form.php?id=<?php echo $task->id; ?>">Edit</a>
                 </div>
                 <div class="task-state">
-                    <button class="state <?php echo $task[4]; ?>"><span id="task-state-<?php echo $task[0]; ?>"><?php echo $task[4]; ?></span></button>
+                    <button class="state <?php echo $task->state; ?>"><span
+                                id="task-state-<?php echo $task->id; ?>"><?php echo $task->state; ?></span></button>
                 </div>
             </div>
         </div>

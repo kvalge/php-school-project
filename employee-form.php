@@ -12,7 +12,7 @@
 
 include 'menu.html';
 
-require_once 'controller.php';
+require_once 'functions.php';
 
 $id = $_GET['id'] ?? null;
 $firstName = "";
@@ -21,10 +21,10 @@ $position = "";
 $positionList = ["Manager", "Designer", "Developer"];
 
 if ($id) {
-    $explode = explode(',', getEmployeeById($id));
-    $firstName = $explode[1];
-    $lastName = $explode[2];
-    $position = $explode[3];
+    $employee = getEmployee($id);
+    $firstName = $employee->firstName;
+    $lastName = $employee->lastName;
+    $position = $employee->position;
 }
 
 ?>

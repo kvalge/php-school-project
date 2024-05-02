@@ -12,7 +12,9 @@
 
 include 'menu.html';
 
-require_once 'controller.php';
+require_once 'functions.php';
+
+$employees = getEmployees();
 
 $message = $_GET['message'] ?? null;
 
@@ -25,21 +27,20 @@ $message = $_GET['message'] ?? null;
     <?php endif; ?>
 
     <div class="title">Employees</div>
-    <?php foreach (getEmployees() as $key => $emp) : ?>
-    <?php $employee = explode(',', $emp)?>
+    <?php foreach ($employees as $employee) : ?>
         <div class="list-container">
             <div class="info-text">
                 <div>
-                    <span data-employee-id="<?php echo $employee[0] ?>"><?php print $employee[1] . ' ' . $employee[2]; ?></span>
+                    <span data-employee-id="<?php echo $employee->id ?>"><?php print $employee->firstName . ' ' . $employee->lastName; ?></span>
                 </div>
                 <div>
-                    <?php echo $employee[3] ?>
+                    <?php echo $employee->position ?>
                 </div>
             </div>
             <div class="info-update">
                 <div class="edit">
-                    <a id="employee-edit-link-<?php echo $employee[0] ?>"
-                       href="employee-form.php?id=<?php echo $employee[0]; ?>">Edit</a>
+                    <a id="employee-edit-link-<?php echo $employee->id ?>"
+                       href="employee-form.php?id=<?php echo $employee->id; ?>">Edit</a>
                 </div>
             </div>
         </div>

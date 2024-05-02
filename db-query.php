@@ -1,30 +1,32 @@
 <?php
 
 require_once 'db-connection.php';
+require_once 'Employee.php';
+require_once 'Task.php';
 
-function addEmployee(string $firstName, string $lastName, string $position): void {
+function saveEmployee(Employee $employee): void {
     $conn = getConnection();
 
     $stmt = $conn->prepare('INSERT INTO employee (id, first_name, last_name, position) VALUES 
                                                                (DEFAULT, :firstName, :lastName, :position)');
 
-    $stmt->bindValue(':firstName', $firstName);
-    $stmt->bindValue(':lastName', $lastName);
-    $stmt->bindValue(':position', $position);
+    $stmt->bindValue(':firstName', $employee->firstName);
+    $stmt->bindValue(':lastName', $employee->lastName);
+    $stmt->bindValue(':position', $employee->position);
 
     $stmt->execute();
 }
 
-function addTask(string $employeeId, string $description, int $estimate, string $state): void {
+function saveTask(Task $task): void {
     $conn = getConnection();
 
     $stmt = $conn->prepare('INSERT INTO task (id, employee_id, description, estimate, state) VALUES
                                                                      (DEFAULT, :employeeId, :description, :estimate, :state)');
 
-    $stmt->bindValue(':employeeId', empty($employeeId) ? null : $employeeId);
-    $stmt->bindValue(':description', $description);
-    $stmt->bindValue(':estimate', $estimate);
-    $stmt->bindValue(':state', $state);
+    $stmt->bindValue(':employeeId', empty($task->employeeId) ? null : $task->employeeId);
+    $stmt->bindValue(':description', $task->description);
+    $stmt->bindValue(':estimate', $task->estimate);
+    $stmt->bindValue(':state', $task->state);
 
     $stmt->execute();
 }
@@ -37,20 +39,18 @@ function getAllEmployees(): false|array {
     $stmt->execute();
 
     $employeeList = [];
-
     foreach ($stmt as $row) {
-        $id = $row['id'];
-        $firstName = $row['first_name'];
-        $lastName = $row['last_name'];
-        $position = $row['position'];
-        $employee = $id . ',' . $firstName . ',' . $lastName . ',' . $position;
+
+        [$id, $firstName, $lastName, $position] = $row;
+
+        $employee = new Employee($id, $firstName, $lastName, $position);
+
         $employeeList[] = $employee;
     }
-
     return $employeeList;
 }
 
-function getEmployee(int $id): string {
+function getEmployee(int $id): Employee {
     $conn = getConnection();
 
     $stmt = $conn->prepare('SELECT * FROM employee WHERE id = :id');
@@ -66,7 +66,7 @@ function getEmployee(int $id): string {
     $lastName = $employee['last_name'];
     $position = $employee['position'];
 
-    return $id . ',' . $firstName . ',' . $lastName . ',' . $position;
+    return new Employee($id, $firstName, $lastName, $position);
 }
 
 function getAllTasks(): false|array {
@@ -77,21 +77,17 @@ function getAllTasks(): false|array {
     $stmt->execute();
 
     $taskList = [];
-
     foreach ($stmt as $row) {
-        $id = $row['id'];
-        $employeeId = $row['employee_id'];
-        $description = $row['description'];
-        $estimate = $row['estimate'];
-        $state = $row['state'];
-        $task = $id . ',' . $employeeId . ',' . $description . ',' . $estimate . ',' . $state;
+        [$id, $employeeId, $description, $estimate, $state] = $row;
+
+        $task = new Task($id, $employeeId, $description, $estimate, $state);
+
         $taskList[] = $task;
     }
-
     return $taskList;
 }
 
-function getTask(int $id): string {
+function getTask(int $id): Task {
     $conn = getConnection();
 
     $stmt = $conn->prepare('SELECT * FROM task WHERE id = :id');
@@ -108,15 +104,14 @@ function getTask(int $id): string {
     $estimate = $task['estimate'];
     $state = $task['state'];
 
-    return $id . ',' . $employeeId . ',' . $description . ',' . $estimate . ',' . $state;
+    return new Task($id, $employeeId, $description, $estimate, $state);
 }
 
 function deleteEmployee(int $id): void {
     $tasks = findTaskByEmployeeId($id);
 
     foreach ($tasks as $task) {
-        $explode = explode(',', $task);
-        updateTask($explode[0], NULL, $explode[2], $explode[3], 'open');
+        updateTask($task->id, $task->employeeId, $task->description, $task->estimate, $task->state);
     }
 
     $conn = getConnection();
@@ -162,9 +157,7 @@ function countEmployeeTasks(): array {
                 $taskCount[$employeeId] = 0;
             }
         }
-
     }
-
     return $taskCount;
 }
 
@@ -185,10 +178,9 @@ function findTaskByEmployeeId(int $id): array {
         $description = $row['description'];
         $estimate = $row['estimate'];
         $state = $row['state'];
-        $task = $id . ',' . $employeeId . ',' . $description . ',' . $estimate . ',' . $state;
+        $task = new Task($id, $employeeId, $description, $estimate, $state);
         $taskList[] = $task;
     }
-
     return $taskList;
 }
 
@@ -209,7 +201,7 @@ function updateEmployee(int $id, string $firstName, string $lastName, string $po
     $stmt->execute();
 }
 
-function updateTask(int $id, $employeeId, string $description, int $estimate, string $taskState): void {
+function updateTask(int $id, int $employeeId, string $description, int $estimate, string $taskState): void {
     $conn = getConnection();
 
     $stmt = $conn->prepare('UPDATE task SET
