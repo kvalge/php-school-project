@@ -4,7 +4,8 @@ require_once 'db-connection.php';
 require_once 'Employee.php';
 require_once 'Task.php';
 
-class Repository {
+class Repository
+{
 
     public ?PDO $conn = null;
 
@@ -110,7 +111,8 @@ class Repository {
         $tasks = $this->findTaskByEmployeeId($id);
 
         foreach ($tasks as $task) {
-            updateTask($task->id, $task->employeeId, $task->description, $task->estimate, $task->state);
+            $updatedTask = new Task($task->id, null, $task->description, $task->estimate, 'open');
+            $this->updateTask($updatedTask);
         }
 
         $stmt = $this->createConnection()->prepare('DELETE FROM employee WHERE id = :id');
@@ -175,22 +177,22 @@ class Repository {
         return $taskList;
     }
 
-    function updateEmployee(int $id, string $firstName, string $lastName, string $position): void {
+    function updateEmployee(Employee $employee): void {
         $stmt = $this->createConnection()->prepare('UPDATE employee SET
                     first_name = :firstName,
                     last_name = :lastName,
                     position = :position 
                 WHERE id = :id');
 
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':firstName', $firstName);
-        $stmt->bindValue(':lastName', $lastName);
-        $stmt->bindValue(':position', $position);
+        $stmt->bindValue(':id', $employee->id);
+        $stmt->bindValue(':firstName', $employee->firstName);
+        $stmt->bindValue(':lastName', $employee->lastName);
+        $stmt->bindValue(':position', $employee->position);
 
         $stmt->execute();
     }
 
-    function updateTask(int $id, int $employeeId, string $description, int $estimate, string $taskState): void {
+    function updateTask(Task $task): void {
         $stmt = $this->createConnection()->prepare('UPDATE task SET
                     employee_id = :employeeId,
                     description = :description,
@@ -198,11 +200,11 @@ class Repository {
                     state = :state 
                 WHERE id = :id');
 
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':employeeId', $employeeId);
-        $stmt->bindValue(':description', $description);
-        $stmt->bindValue(':estimate', $estimate);
-        $stmt->bindValue(':state', $taskState);
+        $stmt->bindValue(':id', $task->id);
+        $stmt->bindValue(':employeeId', $task->employeeId);
+        $stmt->bindValue(':description', $task->description);
+        $stmt->bindValue(':estimate', $task->estimate);
+        $stmt->bindValue(':state', $task->state);
 
         $stmt->execute();
     }

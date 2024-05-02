@@ -2,6 +2,8 @@
 
 
 require_once 'Repository.php';
+require_once 'Employee.php';
+require_once 'Task.php';
 
 function addEmployee($firstName, $lastName, $position): void {
     $repository = new Repository();
@@ -46,13 +48,17 @@ function getTasks(): false|array {
 function updateEmployee($id, $firstName, $lastName, $position): void {
     $repository = new Repository();
 
-    $repository->updateEmployee($id, $firstName, $lastName, $position);
+    $updatedTask = new Employee($id, $firstName, $lastName, $position);
+
+    $repository->updateEmployee($updatedTask);
 }
 
 function updateTask($id, $employeeId, $description, $estimate, $state): void {
     $repository = new Repository();
 
-    $repository->updateTask($id, $employeeId, $description, $estimate, $state);
+    $updatedTask = new Task($id, $employeeId, $description, $estimate, $state);
+
+    $repository->updateTask($updatedTask);
 }
 
 function deleteEmployee($id): void {
