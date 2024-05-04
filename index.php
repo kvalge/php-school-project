@@ -37,7 +37,8 @@ if ($insertedData === 'employee') {
             'message' => $message,
             'firstName' => $firstName,
             'lastName' => $lastName,
-            'position' => $position
+            'position' => $position,
+            'positions' => $positions
         ];
 
         print renderTemplate('employee-form.html', $data);
@@ -48,13 +49,14 @@ if ($insertedData === 'employee') {
             'message' => $message,
             'firstName' => $firstName,
             'lastName' => $lastName,
-            'position' => $position
+            'position' => $position,
+            'positions' => $positions
         ];
 
         print renderTemplate('employee-form.html', $data);
 
     } else {
-        $message = [''];
+        $message = '';
 
         if ($id) {
             updateEmployee(intval($id), $firstName, $lastName, $position);
@@ -82,7 +84,6 @@ if ($insertedData === 'employee') {
         $data = ['message' => $message];
 
         print renderTemplate('task-form.php', $data);
-        exit();
 
     } else {
         $message = '';
@@ -101,7 +102,7 @@ if ($insertedData === 'employee') {
 
         $data = ['message' => $message];
 
-        print renderTemplate('task-list.php', $data);
+        print renderTemplate('task-list.html', $data);
     }
 
 } else if ($deleteData) {
@@ -124,7 +125,7 @@ if ($insertedData === 'employee') {
 
         $data = ['message' => $message];
 
-        print renderTemplate('task-list.php', $data);
+        print renderTemplate('task-list.html', $data);
 
     }
 
@@ -149,6 +150,13 @@ if ($insertedData === 'employee') {
         $employee = getEmployeeById($id);
     }
 
+    // Remove position from drop down selection list if it is already employee's position
+    if ($employee) {
+        if (($key = array_search($employee->position, $positions)) !== false) {
+            unset($positions[$key]);
+        }
+    }
+
     $data = [
         'firstName' => $employee->firstName ?? null,
         'lastName' => $employee->lastName ?? null,
@@ -159,7 +167,10 @@ if ($insertedData === 'employee') {
 
 
 } else if ($command === 'task_list') {
-    include 'task-list.php';
+    $data = [
+        'tasks' => $tasks,
+    ];
+    print renderTemplate('task-list.html', $data);
 
 } else if ($command === 'task_form') {
     include 'task-form.php';

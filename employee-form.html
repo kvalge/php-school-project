@@ -45,17 +45,17 @@
                 <select name="position">
                     <option tpl-selected="$position">{{ $position }}</option>
                     <tpl tpl-foreach="$positions as $pos">
-                        <tpl tpl_if="$pos != $position"> <option>{{ $pos }}</option></tpl>
+                        <option>{{ $pos }}</option>
                     </tpl>
                 </select>
             </div>
             <br>
 
+            <div class="a" tpl-class="b if $value > 0"></div>
+
             <div>
-                <tpl tpl_if="!$id">
                 <input type="hidden" name="employeeId" value="{{ $id }}">
                 <button type="submit" name="deleteButton" value="deleteEmployee">Delete</button>
-                </tpl>
 
                 <input type="hidden" name="id" value="{{ $id }}">
                 <input type="hidden" name="submitted" value="true">

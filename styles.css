@@ -158,9 +158,9 @@ button {
     margin-left: 420px;
 }
 
-/*button[name="deleteButton"] {*/
-/*    background-color: #dc0376;*/
-/*}*/
+button[name="deleteButton"] {
+    background-color: #dc0376;
+}
 
 .task-state {
     display: inline-block;

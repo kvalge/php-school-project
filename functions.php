@@ -106,3 +106,4 @@ function getTaskState(mixed $completed, mixed $employeeId): string {
     }
     return $taskStateList[2];
 }
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task list</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="task-list-page">
+
+<nav tpl-include="menu.html"></nav>
+
+<div class="container">
+
+    <div class="" tpl-class="message-success if $message" tpl_if="$message">
+        <span id="message-block">{{ $message }}</span>
+    </div>
+
+    <div class="title">Tasks</div>
+
+    <tpl tpl-foreach="$tasks as $task">
+        <div class="list-container">
+            <div class="info-text">
+                <div>
+                    <span data-task-id="{{ $task->id }}">{{ $task->description }}</span>
+                </div>
+                <br>
+                <div class="estimate">
+                    <span class="empty" tpl-foreach="range(5, 1) as $estimate"
+                          tpl-class="filled if $task->estimate <= $estimate"
+                    ></span>
+                </div>
+            </div>
+            <div class="info-update">
+                <div class="edit">
+                    <a id="task-edit-link-{{ $task->id }}"
+                       href="index.php?command=task_form&id={{$task->id}}">Edit</a>
+                </div>
+                <div class="task-state">
+                    <button class="state {{ $task->state }}"><span
+                            id="task-state-$task->id">{{ $task->state }}</span></button>
+                </div>
+            </div>
+        </div>
+    </tpl>
+</div>
+
+<div class="footer">
+    <span tpl-include="footer.html"></span>
+</div>
+
+</body>
+
+</html>
