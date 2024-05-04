@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="dashboard-page">
+
+<nav tpl-include="menu.html"></nav>
+
+<div class="index-container">
+
+    <div class="employee-container">
+
+        <div class="title">Employees</div>
+        <div tpl-foreach="$employees as $employee">
+            <div class="list-container">
+                <div class="info-text">
+                    <div>
+                        <span data-employee-id="{{ $employee->id }}">{{ $employee->firstName }} {{ $employee->lastName }}</span>
+                    </div>
+                    <div>
+                        <span>{{ $employee->position }}</span>
+                    </div>
+                    <br>
+                </div>
+                <div class="info-update">
+                    <span id="employee-task-count-{{ $employee->id }}">{{ $taskCount }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-container">
+
+        <div class="title">Tasks</div>
+
+        <div tpl-foreach="$tasks as $task">
+            <div class="list-container">
+                <div class="info-text">
+                    <div>
+                        <span data-task-id="{{ $task->id }}">{{ $task->description }}</span>
+                    </div>
+                    <br>
+                    <div class="estimate">
+                                    <span class="empty" tpl-foreach="range(5, 1) as $estimate"
+                                          tpl-class="filled if $task->estimate <= $estimate"
+                                    ></span>
+                    </div>
+                </div>
+                <div class="info-update">
+                    <button class="state {{ $task->state }}"><span
+                            id="task-state-{{ $task->id }}">{{ $task->state }}</span></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <span tpl-include="footer.html"></span>
+</div>
+
+</body>
+
+</html>
+

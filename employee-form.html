@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="employee-form-page">
+
+<nav tpl-include="menu.html"></nav>
+
+<div class="container">
+
+    <div class="" tpl-class="message-error if $message" tpl_if="$message">
+        <span id="error-block">{{ $message }}</span>
+    </div>
+
+    <div class="title">Add Employee</div>
+
+    <div class="form-container">
+        <form method="post" action="index.php">
+            <div class="form_group">
+                <label for="firstName">First name:</label>
+                <input
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                        value="{{ $firstName }}"
+                        placeholder="1-21 characters">
+            </div>
+            <br>
+            <div class="form_group">
+                <label for="lastName">Last name:</label>
+                <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        value="{{ $lastName }}"
+                        placeholder="2-22 characters">
+            </div>
+            <br>
+            <div class="form_group">
+                <label>Position: </label>
+                <select name="position">
+                    <option tpl-selected="$position">{{ $position }}</option>
+                    <tpl tpl-foreach="$positions as $pos">
+                        <tpl tpl_if="$pos != $position"> <option>{{ $pos }}</option></tpl>
+                    </tpl>
+                </select>
+            </div>
+            <br>
+
+            <div>
+                <tpl tpl_if="!$id">
+                <input type="hidden" name="employeeId" value="{{ $id }}">
+                <button type="submit" name="deleteButton" value="deleteEmployee">Delete</button>
+                </tpl>
+
+                <input type="hidden" name="id" value="{{ $id }}">
+                <input type="hidden" name="submitted" value="true">
+                <button type="submit" name="submitButton" value="employee">Save</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    <span tpl-include="footer.html"></span>
+</div>
+</body>
+
+</html>

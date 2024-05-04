@@ -5,72 +5,88 @@ ini_set('display_errors', '1');
 
 require_once 'functions.php';
 require_once 'validation.php';
+require_once 'vendor/tpl.php';
 
-$command = null;
+$command = $_GET['command'] ?? 'dashboard';
 
-$id = $_POST['id'] ?? null;
+$insertedData = $_POST['submitButton'] ?? null;
+$deleteData = $_POST['deleteButton'] ?? null;
+
+$id = $_GET['id'] ?? null;
+//$id = $_POST['id'] ?? null;
+$firstName = $_GET['firstName'] ?? null;
 $firstName = $_POST['firstName'] ?? null;
+$lastName = $_GET['lastName'] ?? null;
 $lastName = $_POST['lastName'] ?? null;
+$position = $_GET['position'] ?? null;
 $position = $_POST['position'] ?? null;
 $description = $_POST['description'] ?? null;
 $estimate = $_POST['estimate'] ?? null;
 $employeeId = $_POST['employeeId'] ?? null;
 $completed = $_POST['isCompleted'] ?? null;
 
-$inserted_data = '';
-$buttonValue = null;
+$employees = getEmployees();
+$tasks = getTasks();
 
-if (isset($_POST['submitButton'])) {
-    $inserted_data = $_POST['submitButton'];
-} else if (isset($_POST['deleteButton'])) {
-    $buttonValue = $_POST['deleteButton'];
-} else {
-    $command = $_GET['command'] ?? 'dashboard';
-}
+$positions = ["Manager", "Designer", "Developer"];
 
-if ($command === 'dashboard') {
-    include 'dashboard.php';
-} else if ($command === 'employee_list') {
-    include 'employee-list.php';
-} else if ($command === 'employee_form') {
-    include 'employee-form.php';
-} else if ($command === 'task_list') {
-    include 'task-list.php';
-} else if ($command === 'task_form') {
-    include 'task-form.php';
-}
-
-if ($inserted_data === 'employee') {
+if ($insertedData === 'employee') {
     if (validateFirstName($firstName)) {
         $message = validateFirstName($firstName);
-        include 'employee-form.php';
-        exit();
+        $data = [
+            'message' => $message,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'position' => $position
+        ];
+
+        print renderTemplate('employee-form.html', $data);
 
     } elseif (validateLastName($lastName)) {
         $message = validateLastName($lastName);
-        include 'employee-form.php';
-        exit();
+        $data = [
+            'message' => $message,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'position' => $position
+        ];
+
+        print renderTemplate('employee-form.html', $data);
 
     } else {
+        $message = [''];
+
         if ($id) {
             updateEmployee(intval($id), $firstName, $lastName, $position);
 
             $message = 'Employee is updated!';
+
         } else {
             addEmployee($firstName, $lastName, $position);
 
             $message = 'Employee is added!';
         }
-        header('Location: employee-list.php?message=' . urlencode($message));
+
+        $data = [
+            'employees' => $employees,
+            'message' => $message
+        ];
+
+        print renderTemplate('employee-list.html', $data);
     }
 
-} elseif ($inserted_data === 'task') {
+} elseif ($insertedData === 'task') {
     if (validateTaskDescription($description)) {
         $message = validateTaskDescription($description);
-        include 'task-form.php';
+
+        $data = ['message' => $message];
+
+        print renderTemplate('task-form.php', $data);
         exit();
 
     } else {
+        $message = '';
+
         $taskState = getTaskState($completed, $employeeId);
 
         if ($id) {
@@ -83,21 +99,68 @@ if ($inserted_data === 'employee') {
             $message = 'Task is added!';
         }
 
-        header('Location: task-list.php?message=' . urlencode($message));
-    }
-}
+        $data = ['message' => $message];
 
-if (isset($_POST['deleteButton'])) {
-    if ($buttonValue === 'deleteEmployee') {
+        print renderTemplate('task-list.php', $data);
+    }
+
+} else if ($deleteData) {
+    if ($deleteData === 'deleteEmployee') {
         deleteEmployee(intval($_POST['employeeId']));
 
         $message = 'Employee is Deleted!';
-        header('Location: employee-list.php?message=' . urlencode($message));
 
-    } elseif ($buttonValue === 'deleteTask') {
+        $data = [
+            'employees' => $employees,
+            'message' => $message
+        ];
+
+        print renderTemplate('employee-list.html', $data);
+
+    } elseif ($deleteData === 'deleteTask') {
         deleteTask(intval($_POST['taskId']));
 
         $message = 'Task is Deleted!';
-        header('Location: task-list.php?message=' . urlencode($message));
+
+        $data = ['message' => $message];
+
+        print renderTemplate('task-list.php', $data);
+
     }
+
+} else if ($command === 'dashboard') {
+    $data = [
+        'employees' => $employees,
+        'tasks' => $tasks,
+        'taskCount' => 0
+    ];
+
+    print renderTemplate('dashboard.html', $data);
+
+} else if ($command === 'employee_list') {
+    $data = [
+        'employees' => $employees,
+    ];
+    print renderTemplate('employee-list.html', $data);
+
+} else if ($command === 'employee_form') {
+    $employee = null;
+    if ($id) {
+        $employee = getEmployeeById($id);
+    }
+
+    $data = [
+        'firstName' => $employee->firstName ?? null,
+        'lastName' => $employee->lastName ?? null,
+        'position' => $employee->position ?? null,
+        'positions' => $positions
+    ];
+    print renderTemplate('employee-form.html', $data);
+
+
+} else if ($command === 'task_list') {
+    include 'task-list.php';
+
+} else if ($command === 'task_form') {
+    include 'task-form.php';
 }

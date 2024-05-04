@@ -73,18 +73,26 @@ function deleteTask($id):void {
     $repository->deleteTask($id);
 }
 
-function findNumberOfTasks(int $id) {
+//function findNumberOfTasks(int $id) {
+//    $repository = new Repository();
+//
+//    $taskCount = $repository->getNumberOfEmployeeTasks();
+//
+//    foreach ($taskCount as $key => $value) {
+//        if ($key === $id) {
+//            return $value;
+//        }
+//    }
+//    return 0;
+//}
+
+function findEmployeesAndNumberOfTasks() {
     $repository = new Repository();
 
-    $taskCount = $repository->getNumberOfEmployeeTasks();
-
-    foreach ($taskCount as $key => $value) {
-        if ($key === $id) {
-            return $value;
-        }
-    }
-    return 0;
 }
+
+findEmployeesAndNumberOfTasks();
+
 
 function getTaskState(mixed $completed, mixed $employeeId): string {
     $taskStateList = ['open', 'pending', 'closed'];

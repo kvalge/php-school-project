@@ -130,16 +130,20 @@ class Repository
         $stmt->execute();
     }
 
-    function getNumberOfEmployeeTasks(): array {
-        $stmt = $this->createConnection()->prepare('SELECT employee.id as empId, task.employee_id as taskEmpId  FROM employee LEFT JOIN task ON employee.id = task.employee_id');
+    function getEmployeesAndNumberOfTasks(): array {
+        $stmt = $this->createConnection()->prepare('SELECT employee.id as empId, 
+       task.employee_id as taskEmpId, 
+       employee.first_name, 
+       employee.last_name, 
+       employee.position  
+FROM employee LEFT JOIN task ON employee.id = task.employee_id');
 
         $stmt->execute();
 
         $taskCount = [];
 
         foreach ($stmt as $row) {
-            $employeeId = $row['empId'];
-            $taskEmployeeId = $row['taskEmpId'];
+            [$employeeId, $taskEmployeeId, $firstName, $lastName, $position] = $row;
 
             if (isset($taskCount[$employeeId])) {
                 if ($taskEmployeeId) {
@@ -155,6 +159,32 @@ class Repository
         }
         return $taskCount;
     }
+
+//    function getNumberOfEmployeeTasks(): array {
+//        $stmt = $this->createConnection()->prepare('SELECT employee.id as empId, task.employee_id as taskEmpId  FROM employee LEFT JOIN task ON employee.id = task.employee_id');
+//
+//        $stmt->execute();
+//
+//        $taskCount = [];
+//
+//        foreach ($stmt as $row) {
+//            $employeeId = $row['empId'];
+//            $taskEmployeeId = $row['taskEmpId'];
+//
+//            if (isset($taskCount[$employeeId])) {
+//                if ($taskEmployeeId) {
+//                    $taskCount[$employeeId] += 1;
+//                }
+//            } else {
+//                if ($taskEmployeeId) {
+//                    $taskCount[$employeeId] = 1;
+//                } else {
+//                    $taskCount[$employeeId] = 0;
+//                }
+//            }
+//        }
+//        return $taskCount;
+//    }
 
     function findTaskByEmployeeId(int $id): array {
         $stmt = $this->createConnection()->prepare('SELECT * FROM task WHERE employee_id = :id');

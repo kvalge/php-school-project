@@ -42,7 +42,7 @@ if ($id) {
     <div class="title">Add Task</div>
     <div class="form-container">
 
-        <form method="POST" action="index.php">
+        <form method="POST" action="?">
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4"
