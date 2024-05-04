@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="task-form-page">
+
+<nav tpl-include="menu.html"></nav>
+
+<div class="container">
+
+    <div class="" tpl-class="message-error if $message" tpl_if="$message">
+        <span id="error-block">{{ $message }}</span>
+    </div>
+
+    <div class="title">Add Task</div>
+    <div class="form-container">
+
+        <form method="POST" action="index.php">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4"
+                          cols="31">{{ $description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Estimate:</label>
+                <tpl tpl-foreach="range(5, 1) as $est">
+                    <input type="radio"
+                           name="estimate"
+                           tpl-checked="$est === $estimate"
+                           value="{{ $est }}"/>
+                </tpl>
+            </div>
+
+            <div class="form-group">
+                <label>Assigned to:</label>
+                <select name="employeeId">
+                    <option tpl-selected="$employeeId">{{ $employee->firstName }} {{ $employee->lastName }}</option>
+                    <tpl tpl-foreach="$employees as $emp">
+                        <option value="{{ $emp->id }}">{{ $emp->firstName }} {{ $emp->lastName }}</option>
+                    </tpl>
+                </select>
+            </div>
+
+            <div class="form-group" id="task-state-{{ $id }}">
+                <label for="completed">Completed:</label>
+                <input
+                        type="checkbox"
+                        id="completed"
+                        name="completed"
+                        tpl-checked="$completed"
+                        value="completed">
+            </div>
+
+            <div class="one-button" tpl-class="two-button if $id">
+                <tpl tpl_if="$id">
+                    <input type="hidden" name="taskId" value="{{ $id }}">
+                    <button type="submit" name="deleteButton" value="deleteTask">Delete</button>
+                </tpl>
+
+                <input type="hidden" name="id" value="{{ $id }}">
+                <input type="hidden" name="submitted" value="true">
+                <button type="submit" name="submitButton" value="task">Save</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="footer">
+    <span tpl-include="footer.html"></span>
+</div>
+
+</body>
+
+</html>

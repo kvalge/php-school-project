@@ -45,8 +45,8 @@
                     </div>
                     <br>
                     <div class="estimate">
-                                    <span class="empty" tpl-foreach="range(5, 1) as $estimate"
-                                          tpl-class="filled if $task->estimate <= $estimate"
+                                    <span class="empty" tpl-foreach="range(1, 5) as $estimate"
+                                          tpl-class="filled if $task->estimate >= $estimate"
                                     ></span>
                     </div>
                 </div>
