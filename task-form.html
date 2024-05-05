@@ -28,18 +28,23 @@
 
             <div class="form-group">
                 <label>Estimate:</label>
-                <tpl tpl-foreach="range(5, 1) as $est">
-                    <input type="radio"
-                           name="estimate"
-                           tpl-checked="$est === $estimate"
-                           value="{{ $est }}"/>
+                <div class="radio-buttons">
+                <tpl tpl-foreach="range(1, 5) as $est">
+                    <div class="radio-group">
+                        <label>{{ $est }}</label>
+                        <input type="radio"
+                               name="estimate"
+                               tpl-checked="$est === $estimate"
+                               value="{{ $est }}"/>
+                    </div>
                 </tpl>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Assigned to:</label>
                 <select name="employeeId">
-                    <option tpl-selected="$employeeId">{{ $employee->firstName }} {{ $employee->lastName }}</option>
+                    <option value="{{ $employee->id }}" tpl-selected="$employeeId">{{ $employee->firstName }} {{ $employee->lastName }}</option>
                     <tpl tpl-foreach="$employees as $emp">
                         <option value="{{ $emp->id }}">{{ $emp->firstName }} {{ $emp->lastName }}</option>
                     </tpl>
@@ -51,14 +56,14 @@
                 <input
                         type="checkbox"
                         id="completed"
-                        name="completed"
+                        name="isCompleted"
                         tpl-checked="$completed"
                         value="completed">
             </div>
 
             <div class="one-button" tpl-class="two-button if $id">
                 <tpl tpl_if="$id">
-                    <input type="hidden" name="taskId" value="{{ $id }}">
+                    <input type="hidden" name="id" value="{{ $id }}">
                     <button type="submit" name="deleteButton" value="deleteTask">Delete</button>
                 </tpl>
 

@@ -73,25 +73,22 @@ function deleteTask($id):void {
     $repository->deleteTask($id);
 }
 
-//function findNumberOfTasks(int $id) {
-//    $repository = new Repository();
-//
-//    $taskCount = $repository->getNumberOfEmployeeTasks();
-//
-//    foreach ($taskCount as $key => $value) {
-//        if ($key === $id) {
-//            return $value;
-//        }
-//    }
-//    return 0;
-//}
-
-function findEmployeesAndNumberOfTasks() {
+function findNumberOfTasks(int $id) {
     $repository = new Repository();
 
+    $taskCount = $repository->getNumberOfEmployeeTasks();
+
+    foreach ($taskCount as $key => $value) {
+        if ($key === $id) {
+            return $value;
+        }
+    }
+
+    var_dump($taskCount);
+    return 0;
 }
 
-findEmployeesAndNumberOfTasks();
+findNumberOfTasks(85);
 
 
 function getTaskState(mixed $completed, mixed $employeeId): string {
@@ -105,5 +102,9 @@ function getTaskState(mixed $completed, mixed $employeeId): string {
         }
     }
     return $taskStateList[2];
+}
+
+function getPositions(): array {
+    return ["Manager", "Designer", "Developer"];
 }
 

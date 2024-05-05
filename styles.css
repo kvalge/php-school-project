@@ -107,8 +107,16 @@ select, textarea {
     border-radius: 2px;
 }
 
-input[type="radio"] {
-    position: relative;
+.radio-buttons {
+    display: inline;
+    flex-wrap: wrap;
+}
+
+.radio-group {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    max-width: 35px;
 }
 
 input[type="radio"]::before {
@@ -118,7 +126,6 @@ input[type="radio"]::before {
     height: 11px;
     border: #1e6d94 solid 1px;
     border-radius: 50%;
-
 }
 
 button {
@@ -199,7 +206,6 @@ button.closed {
 .filled {
     background-color: #91c8e4;
 }
-
 
 .message-success {
     color: #1e6d94;
