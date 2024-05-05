@@ -51,14 +51,15 @@
             </div>
             <br>
 
-            <div>
+            <div class="one-button" tpl-class="two-button if $id" tpl_if="id">
                 <input type="hidden" name="employeeId" value="{{ $id }}">
-                <button type="submit" name="deleteButton" value="deleteEmployee">Delete</button>
+                <button type="submit" name="deleteButton" value="deleteEmployee" tpl-if="$id">Delete</button>
 
                 <input type="hidden" name="id" value="{{ $id }}">
                 <input type="hidden" name="submitted" value="true">
                 <button type="submit" name="submitButton" value="employee">Save</button>
             </div>
+
         </form>
 
     </div>

@@ -90,7 +90,6 @@ function findNumberOfTasks(int $id) {
 
 findNumberOfTasks(85);
 
-
 function getTaskState(mixed $completed, mixed $employeeId): string {
     $taskStateList = ['open', 'pending', 'closed'];
 

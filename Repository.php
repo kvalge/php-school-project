@@ -109,6 +109,7 @@ class Repository
     function deleteEmployee(int $id): void {
         $tasks = $this->findTaskByEmployeeId($id);
 
+        // Update the task that is given to the employee who will be deleted
         foreach ($tasks as $task) {
             $updatedTask = new Task($task->id, null, $task->description, $task->estimate, 'open');
             $this->updateTask($updatedTask);

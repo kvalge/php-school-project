@@ -114,6 +114,13 @@ if ($insertedData === 'employee') {
     if (validateFirstName($firstName)) {
         $message = validateFirstName($firstName);
 
+        // Remove the position from the dropdown selection list if it has already been pre-selected
+        if ($position) {
+            if (($key = array_search($position, $positions)) !== false) {
+                unset($positions[$key]);
+            }
+        }
+
         $data = [
             'message' => $message,
             'id' => $idPost,
@@ -127,6 +134,13 @@ if ($insertedData === 'employee') {
 
     } elseif (validateLastName($lastName)) {
         $message = validateLastName($lastName);
+
+        // Remove the position from the dropdown selection list if it has already been pre-selected
+        if ($position) {
+            if (($key = array_search($position, $positions)) !== false) {
+                unset($positions[$key]);
+            }
+        }
 
         $data = [
             'message' => $message,
@@ -151,15 +165,10 @@ if ($insertedData === 'employee') {
             $message = 'Employee is added!';
         }
 
-        $employees = getEmployees();
-
-        $data = [
-            'employees' => $employees,
-            'message' => $message
-        ];
-
-        print renderTemplate('employee-list.html', $data);
+        header('Location: index.php?command=employee_list');
+        exit;
     }
+
 } elseif ($insertedData === 'task') {
     if (validateTaskDescription($description)) {
         $message = validateTaskDescription($description);
@@ -170,7 +179,7 @@ if ($insertedData === 'employee') {
             $employee = getEmployeeById(intval($employeeId));
         }
 
-        // Remove the name from the dropdown selection list if it has already been pre-selected as the first
+        // Remove the name from the dropdown selection list if it has already been pre-selected
         $key = array_search($employee, $employees);
         if ($key !== false) {
             unset($employees[$key]);
@@ -204,14 +213,8 @@ if ($insertedData === 'employee') {
             $message = 'Task is added!';
         }
 
-        $tasks = getTasks();
-
-        $data = [
-            'message' => $message,
-            'tasks' => $tasks
-        ];
-
-        print renderTemplate('task-list.html', $data);
+        header('Location: index.php?command=task_list');
+        exit;
     }
 }
 

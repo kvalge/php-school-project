@@ -15,6 +15,7 @@
     <div class="employee-container">
 
         <div class="title">Employees</div>
+
         <div tpl-foreach="$employees as $employee">
             <div class="list-container">
                 <div class="info-text">
@@ -27,7 +28,7 @@
                     <br>
                 </div>
                 <div class="info-update">
-                    <span id="employee-task-count-{{ $employee->id }}">{{ $taskCount }}</span>
+                    <span id="employee-task-count-{{ $employee->id }}" tpl-if="3>1"> {{ $taskCount }}</span>
                 </div>
             </div>
         </div>
