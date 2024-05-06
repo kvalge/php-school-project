@@ -13,6 +13,7 @@ $insertedData = $_POST['submitButton'] ?? null;
 $deleteData = $_POST['deleteButton'] ?? null;
 
 $id = $_GET['id'] ?? null;
+$message = $_GET['message'] ?? null;
 $idPost = $_POST['id'] ?? null;
 $firstName = $_POST['firstName'] ?? null;
 $lastName = $_POST['lastName'] ?? null;
@@ -25,7 +26,6 @@ $completed = $_POST['isCompleted'] ?? null;
 $employees = getEmployees();
 $tasks = getTasks();
 $positions = getPositions();
-$message = '';
 
 if ($command === 'dashboard' && !$insertedData && !$deleteData) {
     $employeeTasks = findNumberOfTasks();
@@ -72,6 +72,7 @@ if ($command === 'dashboard' && !$insertedData && !$deleteData) {
 } else if ($command === 'task_list') {
     $data = [
         'tasks' => $tasks,
+        'message' => $message
     ];
 
     print renderTemplate('task-list.html', $data);
@@ -141,15 +142,15 @@ if ($insertedData === 'employee') {
         if ($idPost) {
             updateEmployee(intval($idPost), $firstName, $lastName, $position);
 
-            $message = 'Employee is updated!';
+            $message = urlencode('Employee is updated!');
 
         } else {
             addEmployee($firstName, $lastName, $position);
 
-            $message = 'Employee is added!';
+            $message = urlencode('Employee is added!');
         }
 
-        header('Location: index.php?command=employee_list');
+        header('Location: index.php?command=employee_list&message=' . $message);
         exit;
     }
 
@@ -170,14 +171,14 @@ if ($insertedData === 'employee') {
         }
 
         $data = [
+            'id' => $idPost,
             'message' => $message,
             'employeeId' => $employeeId,
             'description' => $description,
             'estimate' => intval($estimate),
             'completed' => $completed,
             'employees' => $employees,
-            'employee' => $employee,
-            'id' => $idPost
+            'employee' => $employee
         ];
 
         print renderTemplate('task-form.html', $data);
@@ -188,14 +189,14 @@ if ($insertedData === 'employee') {
         if ($idPost) {
             updateTask(intval($idPost), intval($employeeId), $description, intval($estimate), $taskState);
 
-            $message = 'Task is updated!';
+            $message = urlencode('Task is updated!');
         } else {
             addTask(intval($employeeId), $description, intval($estimate), $taskState);
 
-            $message = 'Task is added!';
+            $message = urlencode('Task is added!');
         }
 
-        header('Location: index.php?command=task_list');
+        header('Location: index.php?command=task_list&message=' . $message);
         exit;
     }
 }
