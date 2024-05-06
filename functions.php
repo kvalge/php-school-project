@@ -4,6 +4,15 @@
 require_once 'Repository.php';
 require_once 'Employee.php';
 require_once 'Task.php';
+require_once 'EmployeeTask.php';
+
+const OPEN = 'open';
+const PENDING = 'pending';
+const CLOSED = 'closed';
+const MANAGER = "Manager";
+const DESIGNER = "Designer";
+const DEVELOPER = "Developer";
+
 
 function addEmployee($firstName, $lastName, $position): void {
     $repository = new Repository();
@@ -73,25 +82,21 @@ function deleteTask($id):void {
     $repository->deleteTask($id);
 }
 
-function findNumberOfTasks(int $id) {
+function findNumberOfTasks(): array {
     $repository = new Repository();
 
     $taskCount = $repository->getNumberOfEmployeeTasks();
 
-    foreach ($taskCount as $key => $value) {
-        if ($key === $id) {
-            return $value;
-        }
+    $employeeTasks = [];
+    foreach ($taskCount as $index => $value) {
+        $employeeTasks[] = new EmployeeTask($index, $value);
     }
 
-    var_dump($taskCount);
-    return 0;
+    return $employeeTasks;
 }
 
-findNumberOfTasks(85);
-
 function getTaskState(mixed $completed, mixed $employeeId): string {
-    $taskStateList = ['open', 'pending', 'closed'];
+    $taskStateList = [OPEN, PENDING, CLOSED];
 
     if (!$completed) {
         if (!$employeeId) {
@@ -104,6 +109,6 @@ function getTaskState(mixed $completed, mixed $employeeId): string {
 }
 
 function getPositions(): array {
-    return ["Manager", "Designer", "Developer"];
+    return [MANAGER, DESIGNER, DEVELOPER];
 }
 

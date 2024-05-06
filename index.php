@@ -28,10 +28,12 @@ $positions = getPositions();
 $message = '';
 
 if ($command === 'dashboard' && !$insertedData && !$deleteData) {
+    $employeeTasks = findNumberOfTasks();
+
     $data = [
         'employees' => $employees,
         'tasks' => $tasks,
-        'taskCount' => 0
+        'employeeTasks' => $employeeTasks
     ];
 
     print renderTemplate('dashboard.html', $data);
@@ -39,6 +41,7 @@ if ($command === 'dashboard' && !$insertedData && !$deleteData) {
 } else if ($command === 'employee_list') {
     $data = [
         'employees' => $employees,
+        'message' => $message
     ];
 
     print renderTemplate('employee-list.html', $data);
@@ -111,29 +114,10 @@ if ($command === 'dashboard' && !$insertedData && !$deleteData) {
 }
 
 if ($insertedData === 'employee') {
-    if (validateFirstName($firstName)) {
-        $message = validateFirstName($firstName);
+    $employee = new Employee(null, $firstName, $lastName, $position);
 
-        // Remove the position from the dropdown selection list if it has already been pre-selected
-        if ($position) {
-            if (($key = array_search($position, $positions)) !== false) {
-                unset($positions[$key]);
-            }
-        }
-
-        $data = [
-            'message' => $message,
-            'id' => $idPost,
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'position' => $position,
-            'positions' => $positions
-        ];
-
-        print renderTemplate('employee-form.html', $data);
-
-    } elseif (validateLastName($lastName)) {
-        $message = validateLastName($lastName);
+    if (validateEmployee($employee)) {
+        $message = validateEmployee($employee);
 
         // Remove the position from the dropdown selection list if it has already been pre-selected
         if ($position) {
@@ -199,8 +183,6 @@ if ($insertedData === 'employee') {
         print renderTemplate('task-form.html', $data);
 
     } else {
-        $message = '';
-
         $taskState = getTaskState($completed, $employeeId);
 
         if ($idPost) {

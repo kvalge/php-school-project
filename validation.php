@@ -1,17 +1,13 @@
 <?php
 
-function validateFirstName(string $firstName): ?string {
-    if (strlen($firstName) >= 1 && strlen($firstName) <= 21) {
-        return null;
+function validateEmployee(Employee $employee): ?string {
+    if (strlen($employee->firstName) < 1 || strlen($employee->firstName) > 21) {
+        return 'Length of the first name should be 1 - 21!';
     }
-    return 'Length of the first name should be 1 - 21!';
-}
-
-function validateLastName(string $lastName): ?string {
-    if (strlen($lastName) >= 2 && strlen($lastName) <= 22) {
-        return null;
+    elseif (strlen($employee->lastName) < 2 || strlen($employee->lastName) > 22){
+        return 'Length of the last name should be 2 - 22!';
     }
-    return 'Length of the last name should be 2 - 22!';
+    return null;
 }
 
 function validateTaskDescription(string $description): ?string {

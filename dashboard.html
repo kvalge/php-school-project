@@ -28,8 +28,10 @@
                     <br>
                 </div>
                 <div class="info-update">
-                    <span id="employee-task-count-{{ $employee->id }}" tpl-if="3>1"> {{ $taskCount }}</span>
-                </div>
+                    <div tpl-foreach="$employeeTasks as $tasks">
+                    <span id="employee-task-count-{{ $employee->id }}" tpl-if="$tasks->employeeId === $employee->id"> {{ $tasks->taskCount }}</span>
+                    </div>
+                   </div>
             </div>
         </div>
     </div>
