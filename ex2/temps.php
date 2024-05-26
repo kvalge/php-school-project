@@ -1,8 +1,8 @@
 <?php
 
-require_once '../ex1/ex7.php'; // use existing code
+require_once '../ex1/ex7.php';
+require_once '../ex1/ex8.php';
 require_once '../ex2/functions.php';
-require_once 'functions.php'; // separate functions from main program
 
 $opts = getopt('c:y:t:', ['command:', 'year:', 'temp:']);
 
@@ -21,7 +21,7 @@ else if ($command === 'days-under-temp-dict') {
     if (!$temp) {
         showError('temperature parameter is missing');
     }
-    print dictToString(getDaysUnderTempDictionary(-5));
+    print dictToString(getDaysUnderTempDictionary($temp));
 
 } else if ($command === 'avg-winter-temp') {
     if (!$year) {
@@ -40,3 +40,8 @@ function showError(string $message): void {
     fwrite(STDERR, $message . PHP_EOL);
     exit(1);
 }
+
+// terminal commands:
+// php temps.php --command days-under-temp --year 2023 --temp -5
+// php temps.php --command days-under-temp-dict --temp -5
+// php temps.php --command avg-winter-temp --year 2022/2023
